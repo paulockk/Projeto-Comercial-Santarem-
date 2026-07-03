@@ -4,20 +4,25 @@ export interface Product {
   categoryId: string;
   categoryName: string;
   imageUrl: string;
-  imagePath: string; // caminho no Storage, útil para deletar depois
+  imagePublicId: string;
   price?: number;
   description?: string;
   brand?: string;
   featured: boolean;
   onSale: boolean;
   available: boolean;
-  createdAt: number; // timestamp
+  createdAt: number;
   updatedAt: number;
 }
 
 export type ProductFormData = Omit<
   Product,
-  "id" | "createdAt" | "updatedAt" | "imageUrl" | "imagePath" | "categoryName"
+  | "id"
+  | "createdAt"
+  | "updatedAt"
+  | "imageUrl"
+  | "imagePublicId"
+  | "categoryName"
 > & {
   image?: File | null;
 };
