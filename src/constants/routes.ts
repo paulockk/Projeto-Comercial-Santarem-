@@ -1,0 +1,17 @@
+export const ROUTES = {
+  HOME: "/",
+  PRODUCTS: "/produtos",
+  PRODUCT_DETAIL: "/produtos/:id",
+  CATEGORIES: "/categorias",
+  CATEGORY_DETAIL: "/categorias/:id",
+  ABOUT: "/sobre",
+  CONTACT: "/contato",
+  ADMIN_LOGIN: "/admin/login",
+  ADMIN_DASHBOARD: "/admin",
+  ADMIN_PRODUCTS: "/admin/produtos",
+  ADMIN_PRODUCTS_NEW: "/admin/produtos/novo",
+  ADMIN_PRODUCTS_EDIT: "/admin/produtos/:id/editar",
+  ADMIN_CATEGORIES: "/admin/categorias",
+  ADMIN_CATEGORIES_NEW: "/admin/categorias/novo",
+  ADMIN_CATEGORIES_EDIT: "/admin/categorias/:id/editar",
+} as const;
