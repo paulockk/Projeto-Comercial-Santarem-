@@ -9,7 +9,7 @@ export const categories: Category[] = [
   },
   {
     id: 2,
-    title: "Medicamentos",
+    title: "Medicamentos Veterinarios",
     icon: Pill,
   },
   {
