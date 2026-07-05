@@ -2,7 +2,7 @@ import { MapPin, Phone } from "lucide-react";
 import StoreStatus from "../home/StoreStatus";
 
 const mapsUrl =
-  "https://www.google.com/maps?q=Av.%20Padre%20Salustio%20Rodrigues%20Machado%2C%20485%20-%20Centro%2C%20Len%C3%A7%C3%B3is%20Paulista%20-%20SP%2C%2018682-080&output=embed";
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5908.613920091724!2d-48.804906468234336!3d-22.60501524128679!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c0b760744d506d%3A0xec0e71a91b230a89!2sComercial%20Santarem!5e0!3m2!1spt-BR!2sbr!4v1783270201404!5m2!1spt-BR!2sbr";
 
 export default function StoreLocation() {
   return (
