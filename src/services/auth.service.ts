@@ -2,6 +2,9 @@ import {
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
   onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
   type User,
 } from "firebase/auth";
 import { auth } from "../firebase/config";
@@ -25,8 +28,16 @@ function mapFirebaseAuthError(code: string): string {
   }
 }
 
-export async function login(email: string, password: string): Promise<User> {
+export async function login(
+  email: string,
+  password: string,
+  rememberMe = false,
+): Promise<User> {
   try {
+    await setPersistence(
+      auth,
+      rememberMe ? browserLocalPersistence : browserSessionPersistence,
+    );
     const credential = await signInWithEmailAndPassword(auth, email, password);
     return credential.user;
   } catch (error) {
