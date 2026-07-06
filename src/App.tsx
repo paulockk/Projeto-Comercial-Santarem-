@@ -7,6 +7,7 @@ import LoginPage from "./pages/admin/LoginPage";
 import DashboardPage from "./pages/admin/DashboardPage";
 import Home from "./pages/Home";
 import { ROUTES } from "./constants/routes";
+import ProductNewPage from "./pages/admin/ProductNewPage";
 
 export default function App() {
   return (
@@ -28,6 +29,10 @@ export default function App() {
               <Route
                 path={ROUTES.ADMIN_DASHBOARD}
                 element={<DashboardPage />}
+              />
+              <Route
+                path={ROUTES.ADMIN_PRODUCTS_NEW}
+                element={<ProductNewPage />}
               />
             </Route>
           </Route>
