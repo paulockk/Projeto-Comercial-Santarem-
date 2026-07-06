@@ -7,12 +7,10 @@ export const productSchema = z.object({
     .string()
     .min(1, "A URL da imagem é obrigatória")
     .url("Digite uma URL válida (ex: https://...)"),
-  price: z
-    .union([z.number(), z.nan()])
-    .optional()
-    .transform((val) =>
-      val === undefined || Number.isNaN(val) ? undefined : val,
-    ),
+  price: z.preprocess(
+    (value) => (Number.isNaN(value) ? undefined : value),
+    z.number().optional(),
+  ),
   description: z.string().max(1000, "Descrição muito longa").optional(),
   brand: z.string().max(80, "Nome da marca muito longo").optional(),
   featured: z.boolean(),
