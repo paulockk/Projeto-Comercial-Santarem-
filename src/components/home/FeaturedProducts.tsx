@@ -21,7 +21,7 @@ export default function FeaturedProducts() {
         </button>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4 px-4">
         {products.slice(0, 4).map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

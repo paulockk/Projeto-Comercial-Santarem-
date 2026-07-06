@@ -8,6 +8,8 @@ import DashboardPage from "./pages/admin/DashboardPage";
 import Home from "./pages/Home";
 import { ROUTES } from "./constants/routes";
 import ProductNewPage from "./pages/admin/ProductNewPage";
+import ProductsDetails from "./pages/ProductsDetails";
+
 
 export default function App() {
   return (
@@ -17,6 +19,8 @@ export default function App() {
         <Routes>
           {/* Rota pública */}
           <Route path={ROUTES.HOME} element={<Home />} />
+
+          <Route path="/produtos/:id" element={<ProductsDetails />} />
 
           {/* Outras rotas públicas (produtos, categorias, sobre, contato) virão aqui depois */}
 
