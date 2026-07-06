@@ -14,13 +14,11 @@ import {
 import { db } from "../firebase/config";
 import { COLLECTIONS } from "../constants/firebase";
 import type { Product, ProductFormData } from "../types/product.types";
-import { uploadImage } from "./cloudinary.service";
 
 const productsRef = collection(db, COLLECTIONS.PRODUCTS);
 
 export class ProductServiceError extends Error {}
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapDocToProduct(docSnap: any): Product {
   const data = docSnap.data();
   return {
@@ -29,7 +27,6 @@ function mapDocToProduct(docSnap: any): Product {
     categoryId: data.categoryId,
     categoryName: data.categoryName,
     imageUrl: data.imageUrl,
-    imagePublicId: data.imagePublicId,
     price: data.price,
     description: data.description,
     brand: data.brand,
@@ -107,19 +104,13 @@ interface CreateProductInput extends ProductFormData {
 export async function createProduct(
   input: CreateProductInput,
 ): Promise<string> {
-  if (!input.image) {
-    throw new ProductServiceError("A imagem do produto é obrigatória.");
-  }
-
-  const uploaded = await uploadImage(input.image);
   const now = Date.now();
 
   const docRef = await addDoc(productsRef, {
     name: input.name,
     categoryId: input.categoryId,
     categoryName: input.categoryName,
-    imageUrl: uploaded.url,
-    imagePublicId: uploaded.publicId,
+    imageUrl: input.imageUrl,
     price: input.price ?? null,
     description: input.description ?? "",
     brand: input.brand ?? "",
@@ -141,26 +132,19 @@ export async function updateProduct(
   id: string,
   input: UpdateProductInput,
 ): Promise<void> {
-  const payload: Record<string, unknown> = {
-    updatedAt: Date.now(),
-  };
+  const payload: Record<string, unknown> = { updatedAt: Date.now() };
 
   if (input.name !== undefined) payload.name = input.name;
   if (input.categoryId !== undefined) payload.categoryId = input.categoryId;
   if (input.categoryName !== undefined)
     payload.categoryName = input.categoryName;
+  if (input.imageUrl !== undefined) payload.imageUrl = input.imageUrl;
   if (input.price !== undefined) payload.price = input.price;
   if (input.description !== undefined) payload.description = input.description;
   if (input.brand !== undefined) payload.brand = input.brand;
   if (input.featured !== undefined) payload.featured = input.featured;
   if (input.onSale !== undefined) payload.onSale = input.onSale;
   if (input.available !== undefined) payload.available = input.available;
-
-  if (input.image) {
-    const uploaded = await uploadImage(input.image);
-    payload.imageUrl = uploaded.url;
-    payload.imagePublicId = uploaded.publicId;
-  }
 
   await updateDoc(doc(db, COLLECTIONS.PRODUCTS, id), payload);
 }

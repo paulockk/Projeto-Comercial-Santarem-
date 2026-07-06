@@ -4,7 +4,6 @@ export interface Product {
   categoryId: string;
   categoryName: string;
   imageUrl: string;
-  imagePublicId: string;
   price?: number;
   description?: string;
   brand?: string;
@@ -15,14 +14,14 @@ export interface Product {
   updatedAt: number;
 }
 
-export type ProductFormData = Omit<
-  Product,
-  | "id"
-  | "createdAt"
-  | "updatedAt"
-  | "imageUrl"
-  | "imagePublicId"
-  | "categoryName"
-> & {
-  image?: File | null;
+export type ProductFormData = {
+  name: string;
+  categoryId: string;
+  imageUrl: string;
+  price?: number;
+  description?: string;
+  brand?: string;
+  featured: boolean;
+  onSale: boolean;
+  available: boolean;
 };
