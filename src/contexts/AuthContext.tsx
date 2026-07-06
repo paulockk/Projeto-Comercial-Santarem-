@@ -16,7 +16,11 @@ interface AuthContextValue {
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (
+    email: string,
+    password: string,
+    rememberMe?: boolean,
+  ) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -35,8 +39,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return unsubscribe;
   }, []);
 
-  async function login(email: string, password: string) {
-    const loggedUser = await loginService(email, password);
+  async function login(email: string, password: string, rememberMe = false) {
+    const loggedUser = await loginService(email, password, rememberMe);
     setUser(loggedUser);
   }
 
