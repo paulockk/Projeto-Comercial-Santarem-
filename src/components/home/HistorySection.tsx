@@ -1,4 +1,10 @@
-import { Clock3, PawPrint, ShieldCheck, Store } from "lucide-react";
+import {
+  Clock3,
+  PawPrint,
+  ShieldCheck,
+  CreditCard,
+  BadgePercent,
+} from "lucide-react";
 import { motion } from "framer-motion";
 
 const cards = [
@@ -17,10 +23,16 @@ const cards = [
     title: "Qualidade",
     description: "Produtos selecionados e atendimento com confiança.",
   },
+
   {
-    icon: Store,
-    title: "Atendimento",
-    description: "Uma equipe pronta para ajudar você a encontrar o que precisa.",
+    icon: CreditCard,
+    title: "Parcelamento Facilitado",
+    description: "Compras acima de R$ 100 podem ser parceladas para facilitar o seu pagamento.",
+  },
+  {
+    icon: BadgePercent,
+    title: "5% de Desconto no PIX",
+    description: "Economize 5% pagando suas compras via PIX.",
   },
 ];
 
@@ -53,7 +65,7 @@ export default function HistorySection() {
           </p>
         </motion.div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((card, index) => {
             const Icon = card.icon;
 
@@ -72,19 +84,21 @@ export default function HistorySection() {
                   y: -8,
                   scale: 1.03,
                 }}
-                className="cursor-pointer rounded-2xl bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md"
+                className="cursor-pointer rounded-2xl bg-white p-6 text-center shadow-sm transition-all duration-300 hover:shadow-xl"
               >
-                <Icon
-                  size={40}
-                  className="mx-auto mb-4 text-[#2E3192]"
-                  strokeWidth={2}
-                />
+                <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#EEF2FF]">
+                  <Icon
+                    size={34}
+                    className="text-[#2E3192]"
+                    strokeWidth={2}
+                  />
+                </div>
 
                 <h4 className="text-lg font-semibold text-gray-900">
                   {card.title}
                 </h4>
 
-                <p className="mt-2 text-sm leading-6 text-gray-600">
+                <p className="mt-3 text-sm leading-6 text-gray-600">
                   {card.description}
                 </p>
               </motion.div>
