@@ -14,15 +14,15 @@ export function StatCard({
   colorClass = "bg-primary-50 text-primary-600",
 }: StatCardProps) {
   return (
-    <div className="card p-5 flex items-center gap-4">
+    <div className="card p-4 sm:p-5 flex items-center gap-3 sm:gap-4">
       <div
-        className={`h-12 w-12 rounded-lg flex items-center justify-center ${colorClass}`}
+        className={`h-10 w-10 sm:h-12 sm:w-12 rounded-lg flex items-center justify-center shrink-0 ${colorClass}`}
       >
-        <Icon className="h-6 w-6" />
+        <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
       </div>
-      <div>
-        <p className="text-sm text-gray-500">{label}</p>
-        <p className="text-2xl font-bold text-gray-900">{value}</p>
+      <div className="min-w-0">
+        <p className="text-xs sm:text-sm text-gray-500 truncate">{label}</p>
+        <p className="text-lg sm:text-2xl font-bold text-gray-900">{value}</p>
       </div>
     </div>
   );
