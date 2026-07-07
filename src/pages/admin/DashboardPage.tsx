@@ -45,7 +45,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Ações rápidas */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <Link
           to={ROUTES.ADMIN_PRODUCTS_NEW}
           className="card p-5 flex items-center gap-4 hover:shadow-md hover:border-primary-200 transition-all group"
@@ -102,7 +102,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Estatísticas */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
         <StatCard
           label="Total de produtos"
           value={products.length}
