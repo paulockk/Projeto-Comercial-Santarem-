@@ -13,6 +13,7 @@ import ScrollToTop from "./components/common/ScrollToTop";
 import ProductsListPage from "./pages/admin/ProductsListPage";
 import CategoriesListPage from "./pages/admin/CategoriesListPage";
 import CategoryNewPage from "./pages/admin/CategoryNewPage";
+import CategoryDetails from "./pages/Categories";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
           <Route path={ROUTES.HOME} element={<Home />} />
 
           <Route path="/produtos/:id" element={<ProductsDetails />} />
+           <Route path="/categoria/:slug" element={<CategoryDetails />} />
 
           {/* Outras rotas públicas (produtos, categorias, sobre, contato) virão aqui depois */}
 
