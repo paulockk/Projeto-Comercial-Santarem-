@@ -8,12 +8,13 @@ import DashboardPage from "./pages/admin/DashboardPage";
 import Home from "./pages/Home";
 import { ROUTES } from "./constants/routes";
 import ProductNewPage from "./pages/admin/ProductNewPage";
-import ProductsDetails from "./pages/ProductsDetails";
 import ScrollToTop from "./components/common/ScrollToTop";
 import ProductsListPage from "./pages/admin/ProductsListPage";
 import CategoriesListPage from "./pages/admin/CategoriesListPage";
 import CategoryNewPage from "./pages/admin/CategoryNewPage";
-import CategoryDetails from "./pages/Categories";
+import SeedPage from "./pages/admin/SeedPage";
+import ProductDetails from "./pages/ProductsDetails";
+// import CategoryDetails from "./pages/Categories";
 
 export default function App() {
   return (
@@ -25,8 +26,8 @@ export default function App() {
           {/* Rota pública */}
           <Route path={ROUTES.HOME} element={<Home />} />
 
-          <Route path="/produtos/:id" element={<ProductsDetails />} />
-           <Route path="/categoria/:slug" element={<CategoryDetails />} />
+          <Route path={ROUTES.PRODUCT_DETAIL} element={<ProductDetails />} />
+          {/* <Route path="/categoria/:slug" element={<CategoryDetails />} /> */}
 
           {/* Outras rotas públicas (produtos, categorias, sobre, contato) virão aqui depois */}
 
@@ -56,6 +57,7 @@ export default function App() {
                 path={ROUTES.ADMIN_CATEGORIES_NEW}
                 element={<CategoryNewPage />}
               />
+              <Route path="/admin/seed" element={<SeedPage />} />
             </Route>
           </Route>
         </Routes>
