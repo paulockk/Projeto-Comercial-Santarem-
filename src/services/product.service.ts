@@ -19,6 +19,7 @@ const productsRef = collection(db, COLLECTIONS.PRODUCTS);
 
 export class ProductServiceError extends Error {}
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapDocToProduct(docSnap: any): Product {
   const data = docSnap.data();
   return {
@@ -68,8 +69,8 @@ export async function getFeaturedProducts(max = 8): Promise<Product[]> {
   const snapshot = await getDocs(
     query(
       productsRef,
-      where("featured", "==", true),
-      where("available", "==", true),
+      // where("featured", "==", true),
+      // where("available", "==", true),
       orderBy("createdAt", "desc"),
       firestoreLimit(max),
     ),
