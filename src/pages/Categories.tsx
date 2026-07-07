@@ -10,53 +10,78 @@ import CategoryRightPanel from "../components/categoryDetails/CategoryRightPanel
 import CategorySidebar from "../components/categoryDetails/CategorySidebar";
 import CategoryTopBar from "../components/categoryDetails/CategoryTopBar";
 
-import { categories } from "../data/";
-
-const WHATSAPP_NUMBER = "5500000000000";
+import { useCategories } from "../hooks/useCategories";
+import { useProducts } from "../hooks/useProducts";
+import { slugify } from "../utils/slugify";
+import {
+  buildCategoryInquiryMessage,
+  buildWhatsappUrl,
+} from "../utils/whatsapp";
+import { COMPANY } from "../constants/company";
+import { Spinner } from "../components/ui/Spinner";
 
 export default function CategoryDetails() {
   const { slug } = useParams();
+
+  const { categories, isLoading: isLoadingCategories } = useCategories();
+  const { products, isLoading: isLoadingProducts } = useProducts();
 
   const [search, setSearch] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [activeFilter, setActiveFilter] = useState("Todos");
 
-  const category = categories.find((item) => item.slug === slug);
+  const isLoading = isLoadingCategories || isLoadingProducts;
 
+  const category = useMemo(
+    () => categories.find((item) => slugify(item.name) === slug),
+    [categories, slug],
+  );
+
+  const categoryProducts = useMemo(() => {
+    if (!category) return [];
+    return products.filter((p) => p.categoryId === category.id && p.available);
+  }, [products, category]);
+
+  // Usando "marca" como filtro no lugar da antiga "tag".
+  // Se quiser manter tag separada de marca, dá pra adicionar um campo
+  // `tag` opcional no schema de produto depois.
   const filterOptions = useMemo(() => {
-    if (!category) return ["Todos"];
-
-    const tags = category.products.map((product) => product.tag);
-
-    return ["Todos", ...Array.from(new Set(tags))];
-  }, [category]);
+    const brands = categoryProducts
+      .map((p) => p.brand)
+      .filter((b): b is string => !!b);
+    return ["Todos", ...Array.from(new Set(brands))];
+  }, [categoryProducts]);
 
   const filteredProducts = useMemo(() => {
-    if (!category) return [];
-
-    return category.products.filter((product) => {
+    return categoryProducts.filter((product) => {
       const searchText = search.toLowerCase();
-
       const matchesSearch =
         product.name.toLowerCase().includes(searchText) ||
-        product.description.toLowerCase().includes(searchText) ||
-        product.tag.toLowerCase().includes(searchText);
+        (product.description ?? "").toLowerCase().includes(searchText) ||
+        (product.brand ?? "").toLowerCase().includes(searchText);
 
       const matchesFilter =
-        activeFilter === "Todos" || product.tag === activeFilter;
+        activeFilter === "Todos" || product.brand === activeFilter;
 
       return matchesSearch && matchesFilter;
     });
-  }, [category, search, activeFilter]);
+  }, [categoryProducts, search, activeFilter]);
 
-  if (!category) {
-    return <Navigate to="/categoria/pet-shop" replace />;
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Spinner size="lg" />
+      </div>
+    );
   }
 
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    `Olá! Gostaria de consultar produtos da categoria ${category.title}.`
-  )}`;
+  if (!category) {
+    return <Navigate to="/" replace />;
+  }
 
+  const whatsappUrl = buildWhatsappUrl(
+    buildCategoryInquiryMessage(category.name),
+  );
   function clearFilters() {
     setSearch("");
     setActiveFilter("Todos");
@@ -68,7 +93,7 @@ export default function CategoryDetails() {
 
       <main className="min-h-screen bg-[#F7F8FC] pt-20">
         <CategoryTopBar
-          categoryTitle={category.title}
+          categoryTitle={category.name}
           search={search}
           setSearch={setSearch}
           showFilters={showFilters}
@@ -81,7 +106,7 @@ export default function CategoryDetails() {
         <section className="mx-auto grid max-w-container-max gap-5 px-4 py-7 md:px-margin-desktop lg:grid-cols-[220px_1fr_300px]">
           <CategorySidebar
             categories={categories}
-            activeSlug={category.slug}
+            activeSlug={slug ?? ""}
             whatsappUrl={whatsappUrl}
           />
 
@@ -90,7 +115,7 @@ export default function CategoryDetails() {
 
             <CategoryProducts
               products={filteredProducts}
-              whatsappNumber={WHATSAPP_NUMBER}
+              whatsappNumber={COMPANY.whatsapp}
               whatsappUrl={whatsappUrl}
               onClearFilters={clearFilters}
             />
@@ -98,7 +123,7 @@ export default function CategoryDetails() {
 
           <CategoryRightPanel
             category={category}
-            whatsappNumber={WHATSAPP_NUMBER}
+            whatsappNumber={COMPANY.whatsapp}
             whatsappUrl={whatsappUrl}
           />
         </section>

@@ -1,45 +1,107 @@
-import { useParams } from "react-router-dom";
-import { products } from "../data/products";
-
+import { useEffect, useState } from "react";
+import { Navigate, useParams, Link } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
-
-import Breadcrumb from "../components/productDetails/Breadcrumb";
 import ProductGallery from "../components/productDetails/ProductGallery";
 import ProductInfo from "../components/productDetails/ProductInfo";
+import ProductCard from "../components/products/ProductCard";
+import { Spinner } from "../components/ui/Spinner";
+import {
+  getProductById,
+  getProductsByCategory,
+} from "../services/product.service";
+import type { Product } from "../types/product.types";
 
-export default function ProductsDetails() {
+export default function ProductDetails() {
   const { id } = useParams();
-  const product = products.find((item) => item.id === Number(id));
 
-  if (!product) {
+  const [product, setProduct] = useState<Product | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+
+  useEffect(() => {
+    if (!id) return;
+
+    let isMounted = true;
+
+    async function fetchProduct() {
+      setIsLoading(true);
+      setNotFound(false);
+
+      try {
+        const data = await getProductById(id!);
+
+        if (!isMounted) return;
+
+        if (!data) {
+          setNotFound(true);
+          return;
+        }
+
+        setProduct(data);
+
+        const related = await getProductsByCategory(data.categoryId);
+        if (isMounted) {
+          setRelatedProducts(
+            related.filter((p) => p.id !== data.id).slice(0, 4),
+          );
+        }
+      } catch {
+        if (isMounted) setNotFound(true);
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    }
+
+    fetchProduct();
+    return () => {
+      isMounted = false;
+    };
+  }, [id]);
+
+  if (isLoading) {
     return (
-      <>
-        <Navbar />
-        <main className="min-h-screen bg-[#F7F8FC] px-4 py-28">
-          <div className="mx-auto max-w-7xl rounded-3xl bg-white p-8 shadow-sm">
-            <h1 className="text-2xl font-bold text-[#2E3192]">
-              Produto não encontrado
-            </h1>
-          </div>
-        </main>
-        <Footer />
-      </>
+      <div className="min-h-screen flex items-center justify-center">
+        <Spinner size="lg" />
+      </div>
     );
+  }
+
+  if (notFound || !product) {
+    return <Navigate to="/" replace />;
   }
 
   return (
     <>
       <Navbar />
 
-      <main className="min-h-screen bg-[#F7F8FC] px-4 pb-16 pt-24 md:px-8 md:pt-28">
-        <div className="mx-auto max-w-7xl">
-          <Breadcrumb />
+      <main className="min-h-screen bg-[#F7F8FC] pt-20">
+        <div className="mx-auto max-w-container-max px-4 py-8 md:px-margin-desktop">
+          <Link
+            to="/"
+            className="text-sm font-semibold text-[#2E3192] hover:underline"
+          >
+            ← Voltar
+          </Link>
 
-          <section className="grid gap-8 rounded-[28px] bg-white p-4 shadow-sm md:p-8 lg:grid-cols-[1fr_1.05fr] lg:gap-12">
+          <div className="mt-6 grid gap-8 lg:grid-cols-2">
             <ProductGallery product={product} />
             <ProductInfo product={product} />
-          </section>
+          </div>
+
+          {relatedProducts.length > 0 && (
+            <div className="mt-16">
+              <h2 className="mb-6 text-2xl font-bold text-[#2E3192]">
+                Produtos relacionados
+              </h2>
+              <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4">
+                {relatedProducts.map((related) => (
+                  <ProductCard key={related.id} product={related} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </main>
 
