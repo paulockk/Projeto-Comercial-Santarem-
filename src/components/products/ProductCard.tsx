@@ -1,13 +1,19 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import type { Product } from "../../assets/types/product";
+import type { Product } from "../../types/product.types";
 import iconeWhatsApp from "../../assets/images/iconeWhatsApp.png";
+import {
+  buildProductInquiryMessage,
+  buildWhatsappUrl,
+} from "../../utils/whatsapp";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const whatsappUrl = buildWhatsappUrl(buildProductInquiryMessage(product));
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40, scale: 0.95 }}
@@ -26,16 +32,16 @@ export default function ProductCard({ product }: ProductCardProps) {
       <Link to={`/produtos/${product.id}`} className="block">
         <div className="relative h-48 overflow-hidden bg-surface-container">
           <img
-            src={product.image}
-            alt={product.title}
+            src={product.imageUrl}
+            alt={product.name}
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-          {product.tag && (
-            <span className="absolute left-3 top-3 rounded-full bg-[#2E3192] px-3 py-1 text-xs font-semibold text-white shadow">
-              {product.tag}
+          {product.onSale && (
+            <span className="absolute left-3 top-3 rounded-full bg-[#E31E24] px-3 py-1 text-xs font-semibold text-white shadow">
+              Promoção
             </span>
           )}
         </div>
@@ -44,14 +50,12 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="flex flex-1 flex-col p-4 pt-2">
         <Link to={`/produtos/${product.id}`}>
           <h4 className="mb-4 min-h-[56px] text-lg font-semibold text-gray-800 transition-colors duration-300 group-hover:text-[#2E3192]">
-            {product.title}
+            {product.name}
           </h4>
         </Link>
 
         <a
-          href={`https://wa.me/5593999999999?text=${encodeURIComponent(
-            `Olá! Tenho interesse no produto: ${product.title}`,
-          )}`}
+          href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-auto flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-[#1EBE5D] active:scale-95 "
