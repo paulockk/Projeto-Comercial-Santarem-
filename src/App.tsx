@@ -10,12 +10,14 @@ import { ROUTES } from "./constants/routes";
 import ProductNewPage from "./pages/admin/ProductNewPage";
 import ProductsDetails from "./pages/ProductsDetails";
 import ScrollToTop from "./components/common/ScrollToTop";
-
+import ProductsListPage from "./pages/admin/ProductsListPage";
+import CategoriesListPage from "./pages/admin/CategoriesListPage";
+import CategoryNewPage from "./pages/admin/CategoryNewPage";
 
 export default function App() {
   return (
     <BrowserRouter>
-        <ScrollToTop /> 
+      <ScrollToTop />
       <AuthProvider>
         <Toaster position="top-right" />
         <Routes>
@@ -37,8 +39,20 @@ export default function App() {
                 element={<DashboardPage />}
               />
               <Route
+                path={ROUTES.ADMIN_PRODUCTS}
+                element={<ProductsListPage />}
+              />
+              <Route
                 path={ROUTES.ADMIN_PRODUCTS_NEW}
                 element={<ProductNewPage />}
+              />
+              <Route
+                path={ROUTES.ADMIN_CATEGORIES}
+                element={<CategoriesListPage />}
+              />
+              <Route
+                path={ROUTES.ADMIN_CATEGORIES_NEW}
+                element={<CategoryNewPage />}
               />
             </Route>
           </Route>
