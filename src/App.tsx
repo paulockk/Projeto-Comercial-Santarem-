@@ -9,11 +9,13 @@ import Home from "./pages/Home";
 import { ROUTES } from "./constants/routes";
 import ProductNewPage from "./pages/admin/ProductNewPage";
 import ProductsDetails from "./pages/ProductsDetails";
+import ScrollToTop from "./components/common/ScrollToTop";
 
 
 export default function App() {
   return (
     <BrowserRouter>
+        <ScrollToTop /> 
       <AuthProvider>
         <Toaster position="top-right" />
         <Routes>

@@ -1,15 +1,40 @@
-import {
-  Clock3,
-  PawPrint,
-  ShieldCheck,
-  Store,
-} from "lucide-react";
+import { Clock3, PawPrint, ShieldCheck, Store } from "lucide-react";
+import { motion } from "framer-motion";
+
+const cards = [
+  {
+    icon: Clock3,
+    title: "40+ anos",
+    description: "Tradição e experiência atendendo gerações de clientes.",
+  },
+  {
+    icon: PawPrint,
+    title: "Grande variedade",
+    description: "Produtos para pets, jardinagem, piscinas e muito mais.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Qualidade",
+    description: "Produtos selecionados e atendimento com confiança.",
+  },
+  {
+    icon: Store,
+    title: "Atendimento",
+    description: "Uma equipe pronta para ajudar você a encontrar o que precisa.",
+  },
+];
 
 export default function HistorySection() {
   return (
     <section className="mx-4 my-16 rounded-3xl bg-gray-50 py-16 shadow-sm md:mx-8">
       <div className="mx-auto max-w-container-max px-margin-mobile md:px-margin-desktop">
-        <div className="max-w-4xl">
+        <motion.div
+          initial={{ opacity: 0, y: 35 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="max-w-4xl"
+        >
           <h3 className="mb-4 text-[28px] font-semibold text-[#2E3192]">
             Nossa História
           </h3>
@@ -26,64 +51,45 @@ export default function HistorySection() {
             compromisso continua sendo proporcionar um atendimento próximo,
             honesto e de qualidade para toda a comunidade.
           </p>
-        </div>
+        </motion.div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-2xl bg-white p-6 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-            <Clock3
-              size={40}
-              className="mx-auto mb-4 text-[#2E3192]"
-              strokeWidth={2}
-            />
-            <h4 className="text-lg font-semibold text-gray-900">
-              40+ anos
-            </h4>
-            <p className="mt-2 text-sm leading-6 text-gray-600">
-              Tradição e experiência atendendo gerações de clientes.
-            </p>
-          </div>
+          {cards.map((card, index) => {
+            const Icon = card.icon;
 
-          <div className="rounded-2xl bg-white p-6 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-            <PawPrint
-              size={40}
-              className="mx-auto mb-4 text-[#2E3192]"
-              strokeWidth={2}
-            />
-            <h4 className="text-lg font-semibold text-gray-900">
-              Grande variedade
-            </h4>
-            <p className="mt-2 text-sm leading-6 text-gray-600">
-              Produtos para pets, jardinagem, piscinas e muito mais.
-            </p>
-          </div>
+            return (
+              <motion.div
+                key={card.title}
+                initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{
+                  duration: 0.55,
+                  delay: index * 0.12,
+                  ease: "easeOut",
+                }}
+                whileHover={{
+                  y: -8,
+                  scale: 1.03,
+                }}
+                className="cursor-pointer rounded-2xl bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md"
+              >
+                <Icon
+                  size={40}
+                  className="mx-auto mb-4 text-[#2E3192]"
+                  strokeWidth={2}
+                />
 
-          <div className="rounded-2xl bg-white p-6 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-            <ShieldCheck
-              size={40}
-              className="mx-auto mb-4 text-[#2E3192]"
-              strokeWidth={2}
-            />
-            <h4 className="text-lg font-semibold text-gray-900">
-              Qualidade
-            </h4>
-            <p className="mt-2 text-sm leading-6 text-gray-600">
-              Produtos selecionados e atendimento com confiança.
-            </p>
-          </div>
+                <h4 className="text-lg font-semibold text-gray-900">
+                  {card.title}
+                </h4>
 
-          <div className="rounded-2xl bg-white p-6 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-            <Store
-              size={40}
-              className="mx-auto mb-4 text-[#2E3192]"
-              strokeWidth={2}
-            />
-            <h4 className="text-lg font-semibold text-gray-900">
-              Atendimento
-            </h4>
-            <p className="mt-2 text-sm leading-6 text-gray-600">
-              Uma equipe pronta para ajudar você a encontrar o que precisa.
-            </p>
-          </div>
+                <p className="mt-2 text-sm leading-6 text-gray-600">
+                  {card.description}
+                </p>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

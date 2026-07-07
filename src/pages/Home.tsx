@@ -10,15 +10,29 @@ import HistorySection from "../components/home/HistorySection";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-surface pb-24 font-jakarta text-on-surface">
+    <div className="min-h-screen bg-surface pb-4 font-jakarta text-on-surface">
       <Navbar />
 
       <main className="pt-16">
-        <Hero />
-        <CategorySection />
-        <FeaturedProducts />
-        <StoreLocation />
-        <HistorySection />
+        <section id="inicio">
+          <Hero />
+        </section>
+
+        <section id="categorias" className="scroll-mt-20">
+          <CategorySection />
+        </section>
+
+        <section id="produtos" className="scroll-mt-20">
+          <FeaturedProducts />
+        </section>
+
+        <section id="contato" className="scroll-mt-20">
+          <StoreLocation />
+        </section>
+
+        <section id="sobre" className="scroll-mt-20">
+          <HistorySection />
+        </section>
       </main>
 
       <Footer />
