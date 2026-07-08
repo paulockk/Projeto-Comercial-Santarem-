@@ -1,13 +1,13 @@
 import { MessageCircle, ShieldCheck, Sparkles } from "lucide-react";
-
-import type{ CategoryDetail } from "../../../src/types/category1.types";
+import type { Category } from "../../types/category.types";
+import { getIconComponent } from "../../utils/iconMap";
 
 interface CategoryHeroProps {
-  category: CategoryDetail;
+  category: Category;
 }
 
 export default function CategoryHero({ category }: CategoryHeroProps) {
-  const Icon = category.icon;
+  const Icon = getIconComponent(category.icon);
 
   return (
     <div className="relative overflow-hidden rounded-2xl bg-[#2E3192] p-7 text-white shadow-lg md:p-10">
@@ -21,12 +21,14 @@ export default function CategoryHero({ category }: CategoryHeroProps) {
           </span>
 
           <h1 className="text-4xl font-extrabold leading-tight md:text-5xl">
-            {category.title}
+            {category.name}
           </h1>
 
-          <p className="mt-4 max-w-xl text-base leading-7 text-white/85">
-            {category.subtitle}
-          </p>
+          {category.description && (
+            <p className="mt-4 max-w-xl text-base leading-7 text-white/85">
+              {category.description}
+            </p>
+          )}
 
           <div className="mt-7 grid gap-4 sm:grid-cols-3">
             <div className="flex items-center gap-3">
@@ -48,6 +50,7 @@ export default function CategoryHero({ category }: CategoryHeroProps) {
 
         <div className="hidden justify-center md:flex">
           <div className="flex h-44 w-44 items-center justify-center rounded-[2rem] bg-white/10 ring-1 ring-white/20">
+            {/* eslint-disable-next-line react-hooks/static-components */}
             <Icon size={92} className="text-white" />
           </div>
         </div>

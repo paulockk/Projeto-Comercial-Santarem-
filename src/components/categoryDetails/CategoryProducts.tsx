@@ -1,17 +1,20 @@
 import { ChevronRight, Package } from "lucide-react";
-
-import type { CategoryProduct } from "../../types/category";
+import { Link } from "react-router-dom";
+import type { Product } from "../../types/product.types";
+import {
+  buildWhatsappUrl,
+  buildProductInquiryMessage,
+} from "../../utils/whatsapp";
+import { formatPrice } from "../../utils/formatPrice";
 
 interface CategoryProductsProps {
-  products: CategoryProduct[];
-  whatsappNumber: string;
+  products: Product[];
   whatsappUrl: string;
   onClearFilters: () => void;
 }
 
 export default function CategoryProducts({
   products,
-  whatsappNumber,
   whatsappUrl,
   onClearFilters,
 }: CategoryProductsProps) {
@@ -43,30 +46,44 @@ export default function CategoryProducts({
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {products.map((product) => (
             <article
-              key={product.name}
+              key={product.id}
               className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              <div className="flex h-36 items-center justify-center bg-gradient-to-br from-[#F7F8FC] to-[#2E3192]/10">
-                <span className="text-6xl">{product.emoji}</span>
-              </div>
+              <Link to={`/produtos/${product.id}`} className="block">
+                <div className="h-36 overflow-hidden bg-gradient-to-br from-[#F7F8FC] to-[#2E3192]/10">
+                  <img
+                    src={product.imageUrl}
+                    alt={product.name}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+              </Link>
 
               <div className="p-5">
-                <span className="mb-3 inline-flex rounded-full bg-[#E30613]/10 px-3 py-1 text-xs font-extrabold text-[#E30613]">
-                  {product.tag}
-                </span>
+                {product.brand && (
+                  <span className="mb-3 inline-flex rounded-full bg-[#E30613]/10 px-3 py-1 text-xs font-extrabold text-[#E30613]">
+                    {product.brand}
+                  </span>
+                )}
 
-                <h3 className="text-lg font-extrabold text-gray-900 group-hover:text-[#2E3192]">
-                  {product.name}
-                </h3>
+                <Link to={`/produtos/${product.id}`}>
+                  <h3 className="text-lg font-extrabold text-gray-900 group-hover:text-[#2E3192]">
+                    {product.name}
+                  </h3>
+                </Link>
 
                 <p className="mt-2 min-h-[48px] text-sm leading-6 text-gray-500">
                   {product.description}
                 </p>
 
+                {product.price !== undefined && (
+                  <p className="mt-1 font-bold text-gray-800">
+                    {formatPrice(product.price)}
+                  </p>
+                )}
+
                 <a
-                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                    `Olá! Gostaria de consultar: ${product.name}.`
-                  )}`}
+                  href={buildWhatsappUrl(buildProductInquiryMessage(product))}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-5 flex h-10 items-center justify-center rounded-full border border-[#E30613] text-sm font-extrabold text-[#E30613] transition hover:bg-[#E30613] hover:text-white"

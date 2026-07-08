@@ -17,6 +17,23 @@ export default function StoreStatus() {
   }
 
   function getNextOpenDay() {
+    const currentDay = now.getDay();
+    const todaySchedule = schedule[currentDay];
+
+    // Se a loja estiver fechada hoje, verifica se há um horário de abertura mais tarde hoje.
+    if (todaySchedule) {
+      const openMinutes = timeToMinutes(todaySchedule.open);
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+      if (currentMinutes < openMinutes) {
+        return {
+          dayName: "hoje",
+          openTime: todaySchedule.open,
+        };
+      }
+    }
+
+    // procura o próximo dia de abertura nos próximos 7 dias.
     for (let i = 1; i <= 7; i++) {
       const nextDate = new Date(now);
       nextDate.setDate(now.getDate() + i);
@@ -53,9 +70,7 @@ export default function StoreStatus() {
   return (
     <div
       className={`mb-4 inline-flex items-center gap-2 rounded-full px-4 py-1 text-sm font-semibold ${
-        isOpen
-          ? "bg-green-100 text-green-800"
-          : "bg-red-100 text-red-800"
+        isOpen ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
       }`}
     >
       <span
@@ -67,7 +82,9 @@ export default function StoreStatus() {
       {isOpen
         ? "Está aberto agora"
         : `Estamos fechados. Abre ${
-            nextOpen?.dayName === "segunda-feira" ? "segunda-feira" : nextOpen?.dayName
+            nextOpen?.dayName === "segunda-feira"
+              ? "segunda-feira"
+              : nextOpen?.dayName
           } às ${nextOpen?.openTime}`}
     </div>
   );

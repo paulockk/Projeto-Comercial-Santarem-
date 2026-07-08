@@ -1,21 +1,17 @@
+import { Filter, MessageCircle, ShieldCheck, ShoppingBag } from "lucide-react";
+import type { Product } from "../../types/product.types";
 import {
-  Filter,
-  MessageCircle,
-  ShieldCheck,
-  ShoppingBag,
-} from "lucide-react";
-
-import type { CategoryDetail } from "../../types/category";
+  buildWhatsappUrl,
+  buildProductInquiryMessage,
+} from "../../utils/whatsapp";
 
 interface CategoryRightPanelProps {
-  category: CategoryDetail;
-  whatsappNumber: string;
+  topProducts: Product[];
   whatsappUrl: string;
 }
 
 export default function CategoryRightPanel({
-  category,
-  whatsappNumber,
+  topProducts,
   whatsappUrl,
 }: CategoryRightPanelProps) {
   return (
@@ -26,12 +22,10 @@ export default function CategoryRightPanel({
         </h2>
 
         <div className="space-y-4">
-          {category.products.slice(0, 5).map((product, index) => (
+          {topProducts.slice(0, 5).map((product, index) => (
             <a
-              key={product.name}
-              href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                `Olá! Gostaria de consultar: ${product.name}.`
-              )}`}
+              key={product.id}
+              href={buildWhatsappUrl(buildProductInquiryMessage(product))}
               target="_blank"
               rel="noreferrer"
               className="flex gap-3 rounded-xl p-2 transition hover:bg-[#F7F8FC]"
@@ -40,8 +34,12 @@ export default function CategoryRightPanel({
                 {index + 1}
               </span>
 
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#2E3192]/10 text-2xl">
-                {product.emoji}
+              <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-[#2E3192]/10">
+                <img
+                  src={product.imageUrl}
+                  alt={product.name}
+                  className="h-full w-full object-cover"
+                />
               </div>
 
               <div>
@@ -61,7 +59,6 @@ export default function CategoryRightPanel({
       <div className="rounded-2xl bg-[#E30613] p-5 text-white shadow-lg shadow-[#E30613]/20">
         <div className="flex items-center gap-3">
           <MessageCircle size={34} />
-
           <div>
             <h3 className="text-lg font-extrabold">Precisa de ajuda?</h3>
             <p className="text-sm text-white/85">

@@ -37,13 +37,19 @@ export default function Hero() {
 
           {/* Botões */}
           <div className="mt-44 flex flex-wrap gap-6">
-            <button className="rounded-xl bg-[#E31E24] px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-red-700">
+            <a
+              href="#produtos"
+              className="rounded-xl bg-[#E31E24] px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-red-700 cursor-pointer"
+            >
               Ver Ofertas
-            </button>
+            </a>
 
-            <button className="rounded-xl border border-white/30 bg-[#2E3192] px-8 py-4 font-semibold text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-[#23257A]">
+            <a
+              href="#contato"
+              className="rounded-xl border border-white/30 bg-[#2E3192] px-8 py-4 font-semibold text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-[#23257A] cursor-pointer"
+            >
               Nossa Loja
-            </button>
+            </a>
           </div>
         </div>
       </div>

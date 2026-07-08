@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { X } from "lucide-react";
 import { ADMIN_MENU } from "../../constants/adminMenu";
-import { Logo } from "../ui/Logo";
+import { COMPANY } from "../../constants/company";
 
 interface AdminSidebarProps {
   isOpen: boolean;
@@ -20,18 +20,17 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
 
       <aside
         className={`
-          fixed lg:sticky top-0 left-0 h-screen w-72 bg-primary-700 z-50
+          fixed lg:sticky top-0 left-0 h-screen w-72 bg-[#2E3192] z-50
           flex flex-col transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0
         `}
       >
         <div className="flex items-center justify-between px-6 h-16 border-b border-white/10">
           <div className="flex items-center gap-3">
-            <Logo size={36} />
-            <span className="font-bold text-white text-sm leading-tight">
-              Comercial Santarém
-              <span className="block text-primary-200 font-normal text-xs">
-                Admin
+            <span className="font-extrabold text-white text-sm leading-tight">
+              {COMPANY.name}
+              <span className="block text-white/60 font-medium text-xs">
+                Painel administrativo
               </span>
             </span>
           </div>
@@ -52,10 +51,10 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
               onClick={onClose}
               end
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
+                `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-colors ${
                   isActive
-                    ? "bg-white text-primary-700"
-                    : "text-primary-100 hover:bg-white/10 hover:text-white"
+                    ? "bg-white text-[#2E3192]"
+                    : "text-white/70 hover:bg-white/10 hover:text-white"
                 }`
               }
             >
@@ -66,7 +65,7 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
         </nav>
 
         <div className="px-6 py-4 border-t border-white/10">
-          <p className="text-xs text-primary-200">Comercial Santarém v2.4</p>
+          <p className="text-xs text-white/50">{COMPANY.name} v2.4</p>
         </div>
       </aside>
     </>
