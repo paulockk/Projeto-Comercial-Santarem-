@@ -27,6 +27,7 @@ function mapDocToProduct(docSnap: any): Product {
     name: data.name,
     categoryId: data.categoryId,
     categoryName: data.categoryName,
+    subcategory: data.subcategory,
     imageUrl: data.imageUrl,
     price: data.price,
     description: data.description,
@@ -111,6 +112,7 @@ export async function createProduct(
     name: input.name,
     categoryId: input.categoryId,
     categoryName: input.categoryName,
+    subcategory: input.subcategory ?? "",
     imageUrl: input.imageUrl,
     price: input.price ?? null,
     description: input.description ?? "",
@@ -139,6 +141,7 @@ export async function updateProduct(
   if (input.categoryId !== undefined) payload.categoryId = input.categoryId;
   if (input.categoryName !== undefined)
     payload.categoryName = input.categoryName;
+  if (input.subcategory !== undefined) payload.subcategory = input.subcategory;
   if (input.imageUrl !== undefined) payload.imageUrl = input.imageUrl;
   if (input.price !== undefined) payload.price = input.price;
   if (input.description !== undefined) payload.description = input.description;

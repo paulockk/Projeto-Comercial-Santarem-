@@ -17,6 +17,7 @@ const categoriesRef = collection(db, COLLECTIONS.CATEGORIES);
 
 export class CategoryServiceError extends Error {}
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapDocToCategory(docSnap: any): Category {
   const data = docSnap.data();
   return {
@@ -24,7 +25,7 @@ function mapDocToCategory(docSnap: any): Category {
     name: data.name,
     description: data.description,
     icon: data.icon,
-    imageUrl: data.imageUrl,
+    subcategories: data.subcategories,
     createdAt: data.createdAt,
     updatedAt: data.updatedAt,
   };
@@ -47,8 +48,8 @@ export async function createCategory(input: CategoryFormData): Promise<string> {
   const docRef = await addDoc(categoriesRef, {
     name: input.name,
     description: input.description ?? "",
-    icon: input.icon ?? "",
-    imageUrl: input.imageUrl ?? "",
+    icon: input.icon,
+    subcategories: input.subcategories ?? [],
     createdAt: now,
     updatedAt: now,
   });
@@ -65,7 +66,8 @@ export async function updateCategory(
   if (input.name !== undefined) payload.name = input.name;
   if (input.description !== undefined) payload.description = input.description;
   if (input.icon !== undefined) payload.icon = input.icon;
-  if (input.imageUrl !== undefined) payload.imageUrl = input.imageUrl;
+  if (input.subcategories !== undefined)
+    payload.subcategories = input.subcategories;
 
   await updateDoc(doc(db, COLLECTIONS.CATEGORIES, id), payload);
 }
