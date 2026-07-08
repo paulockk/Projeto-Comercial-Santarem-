@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { ArrowLeft, ImagePlus, Save } from "lucide-react";
+import { ArrowLeft, Save } from "lucide-react";
 import {
   productSchema,
   type ProductSchemaData,
@@ -11,9 +11,8 @@ import {
 import { useCategories } from "../../hooks/useCategories";
 import { createProduct } from "../../services/product.service";
 import { ImageUrlPreview } from "../../components/ui/ImageUrlPreview";
-import { ROUTES } from "../../constants/routes";
 import { Toggle } from "../../components/ui/Toggle";
-import { FormActionBar } from "../../components/ui/FormActionBar";
+import { ROUTES } from "../../constants/routes";
 
 export default function ProductNewPage() {
   const navigate = useNavigate();
@@ -25,19 +24,17 @@ export default function ProductNewPage() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({
-    resolver: zodResolver(productSchema),
-    mode: "onBlur",
-    defaultValues: {
-      featured: false,
-      onSale: false,
-      available: true,
-      price: undefined,
-    },
+  } = useForm<ProductSchemaData>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(productSchema) as any,
+    defaultValues: { featured: false, onSale: false, available: true },
   });
 
   // eslint-disable-next-line react-hooks/incompatible-library
   const imageUrl = watch("imageUrl");
+  const categoryId = watch("categoryId");
+  const selectedCategory = categories.find((c) => c.id === categoryId);
+  const availableSubcategories = selectedCategory?.subcategories ?? [];
 
   async function onSubmit(data: ProductSchemaData) {
     const category = categories.find((c) => c.id === data.categoryId);
@@ -59,7 +56,7 @@ export default function ProductNewPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto lg:mx-0 pb-6">
+    <div className="max-w-3xl mx-auto lg:mx-0 pb-10">
       <Link
         to={ROUTES.ADMIN_DASHBOARD}
         className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 mb-6"
@@ -69,7 +66,7 @@ export default function ProductNewPage() {
       </Link>
 
       <div className="mb-6">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+        <h1 className="text-xl sm:text-2xl font-extrabold text-[#2E3192]">
           Novo produto
         </h1>
         <p className="text-gray-500 text-sm sm:text-base mt-1">
@@ -79,16 +76,16 @@ export default function ProductNewPage() {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="card p-5 sm:p-8 space-y-7"
+        className="card p-5 sm:p-8 space-y-8"
         noValidate
       >
         {/* Identificação */}
-        <section className="space-y-5">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-primary-600">
+        <div className="space-y-5">
+          <h2 className="text-xs font-bold uppercase tracking-wide text-[#2E3192]">
             Identificação
           </h2>
 
-          <div className="grid sm:grid-cols-2 gap-5">
+          <div className="space-y-5">
             <div>
               <label htmlFor="name" className="label-field">
                 Nome do produto *
@@ -123,6 +120,25 @@ export default function ProductNewPage() {
                   </option>
                 ))}
               </select>
+              {availableSubcategories.length > 0 && (
+                <div>
+                  <label htmlFor="subcategory" className="label-field">
+                    Subcategoria (opcional)
+                  </label>
+                  <select
+                    id="subcategory"
+                    className="input-field"
+                    {...register("subcategory")}
+                  >
+                    <option value="">Nenhuma</option>
+                    {availableSubcategories.map((sub) => (
+                      <option key={sub} value={sub}>
+                        {sub}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
               {errors.categoryId && (
                 <p className="text-sm text-red-600 mt-1.5">
                   {errors.categoryId.message}
@@ -141,50 +157,45 @@ export default function ProductNewPage() {
               )}
             </div>
           </div>
-        </section>
+        </div>
 
         <hr className="border-gray-100" />
 
         {/* Imagem */}
-        <section className="space-y-3">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-primary-600">
+        <div className="space-y-5">
+          <h2 className="text-xs font-bold uppercase tracking-wide text-[#2E3192]">
             Imagem do produto
           </h2>
 
-          <div className="grid sm:grid-cols-[1fr_auto] gap-5 items-start">
-            <div>
-              <label htmlFor="imageUrl" className="label-field">
-                URL da imagem *
-              </label>
-              <div className="relative">
-                <ImagePlus className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <input
-                  id="imageUrl"
-                  className="input-field pl-10"
-                  placeholder="https://exemplo.com/foto-do-produto.jpg"
-                  {...register("imageUrl")}
-                />
-              </div>
-              {errors.imageUrl && (
-                <p className="text-sm text-red-600 mt-1.5">
-                  {errors.imageUrl.message}
-                </p>
-              )}
-              <p className="text-xs text-gray-400 mt-1.5">
-                Cole o link de uma imagem do site do fabricante ou de onde o
-                produto foi comprado.
+          <div>
+            <label htmlFor="imageUrl" className="label-field">
+              URL da imagem *
+            </label>
+            <input
+              id="imageUrl"
+              className="input-field"
+              placeholder="https://exemplo.com/foto-do-produto.jpg"
+              {...register("imageUrl")}
+            />
+            {errors.imageUrl && (
+              <p className="text-sm text-red-600 mt-1.5">
+                {errors.imageUrl.message}
               </p>
-            </div>
-
-            <ImageUrlPreview url={imageUrl} alt="Pré-visualização do produto" />
+            )}
+            <p className="text-xs text-gray-400 mt-1.5">
+              Cole o link de uma imagem do site do fabricante ou de onde o
+              produto foi comprado.
+            </p>
           </div>
-        </section>
+
+          <ImageUrlPreview url={imageUrl} alt="Pré-visualização do produto" />
+        </div>
 
         <hr className="border-gray-100" />
 
         {/* Preço e marca */}
-        <section className="space-y-5">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-primary-600">
+        <div className="space-y-5">
+          <h2 className="text-xs font-bold uppercase tracking-wide text-[#2E3192]">
             Detalhes comerciais
           </h2>
 
@@ -193,19 +204,14 @@ export default function ProductNewPage() {
               <label htmlFor="price" className="label-field">
                 Preço (opcional)
               </label>
-              <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
-                  R$
-                </span>
-                <input
-                  id="price"
-                  type="number"
-                  step="0.01"
-                  className="input-field pl-9"
-                  placeholder="189,90"
-                  {...register("price", { valueAsNumber: true })}
-                />
-              </div>
+              <input
+                id="price"
+                type="number"
+                step="0.01"
+                className="input-field"
+                placeholder="189.90"
+                {...register("price", { valueAsNumber: true })}
+              />
               {errors.price && (
                 <p className="text-sm text-red-600 mt-1.5">
                   {errors.price.message}
@@ -238,13 +244,13 @@ export default function ProductNewPage() {
               {...register("description")}
             />
           </div>
-        </section>
+        </div>
 
         <hr className="border-gray-100" />
 
         {/* Visibilidade */}
-        <section className="space-y-4">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-primary-600">
+        <div className="space-y-4">
+          <h2 className="text-xs font-bold uppercase tracking-wide text-[#2E3192]">
             Visibilidade
           </h2>
 
@@ -265,19 +271,19 @@ export default function ProductNewPage() {
               {...register("available")}
             />
           </div>
-        </section>
+        </div>
 
-        <FormActionBar>
+        <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-2 border-t border-gray-100">
           <Link
             to={ROUTES.ADMIN_DASHBOARD}
-            className="btn-secondary w-full sm:w-auto"
+            className="text-center px-5 py-3 rounded-xl border border-gray-200 font-bold text-gray-700 hover:bg-gray-50 transition-colors"
           >
             Cancelar
           </Link>
           <button
             type="submit"
             disabled={isSubmitting}
-            className="btn-primary w-full sm:w-auto"
+            className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-white bg-[#2E3192] hover:bg-[#242769] transition-colors disabled:opacity-50"
           >
             {isSubmitting ? (
               "Salvando..."
@@ -288,7 +294,7 @@ export default function ProductNewPage() {
               </>
             )}
           </button>
-        </FormActionBar>
+        </div>
       </form>
     </div>
   );
