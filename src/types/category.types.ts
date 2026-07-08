@@ -2,8 +2,8 @@ export interface Category {
   id: string;
   name: string;
   description?: string;
-  icon?: string;
-  imageUrl?: string;
+  icon: string;
+  subcategories: string[];
   createdAt: number;
   updatedAt: number;
 }
@@ -11,6 +11,6 @@ export interface Category {
 export type CategoryFormData = {
   name: string;
   description?: string;
-  icon?: string;
-  imageUrl?: string;
+  icon: string;
+  subcategories: string[];
 };

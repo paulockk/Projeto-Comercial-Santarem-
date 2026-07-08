@@ -3,6 +3,7 @@ export interface Product {
   name: string;
   categoryId: string;
   categoryName: string;
+  subcategory?: string;
   imageUrl: string;
   price?: number;
   description?: string;
@@ -17,6 +18,7 @@ export interface Product {
 export type ProductFormData = {
   name: string;
   categoryId: string;
+  subcategory?: string;
   imageUrl: string;
   price?: number;
   description?: string;
