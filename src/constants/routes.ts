@@ -3,7 +3,7 @@ export const ROUTES = {
   PRODUCTS: "/produtos",
   PRODUCT_DETAIL: "/produtos/:id",
   CATEGORIES: "/categorias",
-  CATEGORY_DETAIL: "/categorias/:id",
+  CATEGORY_DETAIL: "/categoria/:slug",
   ABOUT: "/sobre",
   CONTACT: "/contato",
   ADMIN_LOGIN: "/admin/login",
