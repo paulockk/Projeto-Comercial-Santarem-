@@ -1,17 +1,17 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { ArrowLeft, ImagePlus, Save } from "lucide-react";
+import { ArrowLeft, Save } from "lucide-react";
 import {
   categorySchema,
   type CategorySchemaData,
 } from "../../schemas/category.schema";
 import { createCategory } from "../../services/category.service";
-import { ImageUrlPreview } from "../../components/ui/ImageUrlPreview";
+import { IconPicker } from "../../components/admin/IconPicker";
 import { ROUTES } from "../../constants/routes";
-import { FormActionBar } from "../../components/ui/FormActionBar";
+import { TagInput } from "../../components/admin/TagInput";
 
 export default function CategoryNewPage() {
   const navigate = useNavigate();
@@ -20,14 +20,12 @@ export default function CategoryNewPage() {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: { errors },
   } = useForm<CategorySchemaData>({
     resolver: zodResolver(categorySchema),
+    defaultValues: { icon: "PawPrint", subcategories: [] },
   });
-
-  // eslint-disable-next-line react-hooks/incompatible-library
-  const imageUrl = watch("imageUrl");
 
   async function onSubmit(data: CategorySchemaData) {
     setIsSubmitting(true);
@@ -43,7 +41,7 @@ export default function CategoryNewPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto lg:mx-0 pb-6">
+    <div className="max-w-2xl mx-auto lg:mx-0 pb-10">
       <Link
         to={ROUTES.ADMIN_DASHBOARD}
         className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 mb-6"
@@ -53,7 +51,7 @@ export default function CategoryNewPage() {
       </Link>
 
       <div className="mb-6">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+        <h1 className="text-xl sm:text-2xl font-extrabold text-[#2E3192]">
           Nova categoria
         </h1>
         <p className="text-gray-500 text-sm sm:text-base mt-1">
@@ -94,41 +92,50 @@ export default function CategoryNewPage() {
           />
         </div>
 
-        <div className="grid sm:grid-cols-[1fr_auto] gap-5 items-start">
-          <div>
-            <label htmlFor="imageUrl" className="label-field">
-              URL da imagem (opcional)
-            </label>
-            <div className="relative">
-              <ImagePlus className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <input
-                id="imageUrl"
-                className="input-field pl-10"
-                placeholder="https://exemplo.com/categoria.jpg"
-                {...register("imageUrl")}
+        <div>
+          <label className="label-field">Subcategorias (opcional)</label>
+          <Controller
+            name="subcategories"
+            control={control}
+            render={({ field }) => (
+              <TagInput
+                value={field.value ?? []}
+                onChange={field.onChange}
+                placeholder="Ex: Ração, Brinquedos, Higiene..."
               />
-            </div>
-            {errors.imageUrl && (
-              <p className="text-sm text-red-600 mt-1.5">
-                {errors.imageUrl.message}
-              </p>
             )}
-          </div>
-
-          <ImageUrlPreview url={imageUrl} alt="Pré-visualização da categoria" />
+          />
+          <p className="text-xs text-gray-400 mt-2">
+            Essas opções aparecem como filtro dentro dos produtos dessa
+            categoria.
+          </p>
         </div>
 
-        <FormActionBar>
+        <div>
+          <label className="label-field">Ícone da categoria *</label>
+          <Controller
+            name="icon"
+            control={control}
+            render={({ field }) => (
+              <IconPicker value={field.value} onChange={field.onChange} />
+            )}
+          />
+          <p className="text-xs text-gray-400 mt-2">
+            Escolha o ícone que representa essa categoria no catálogo.
+          </p>
+        </div>
+
+        <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-2 border-t border-gray-100">
           <Link
             to={ROUTES.ADMIN_DASHBOARD}
-            className="btn-secondary w-full sm:w-auto"
+            className="text-center px-5 py-3 rounded-xl border border-gray-200 font-bold text-gray-700 hover:bg-gray-50 transition-colors"
           >
             Cancelar
           </Link>
           <button
             type="submit"
             disabled={isSubmitting}
-            className="btn-primary w-full sm:w-auto"
+            className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-white bg-[#2E3192] hover:bg-[#242769] transition-colors disabled:opacity-50"
           >
             {isSubmitting ? (
               "Salvando..."
@@ -139,7 +146,7 @@ export default function CategoryNewPage() {
               </>
             )}
           </button>
-        </FormActionBar>
+        </div>
       </form>
     </div>
   );

@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 import { useProducts } from "../../hooks/useProducts";
 import { useCategories } from "../../hooks/useCategories";
-import { StatCard } from "../../components/ui/StatCard";
 import { Spinner } from "../../components/ui/Spinner";
 import { formatPrice } from "../../utils/formatPrice";
 import { ROUTES } from "../../constants/routes";
@@ -37,10 +36,45 @@ export default function DashboardPage() {
     .sort((a, b) => b.createdAt - a.createdAt)
     .slice(0, 5);
 
+  const stats = [
+    {
+      label: "Total de produtos",
+      value: products.length,
+      icon: Package,
+      color: "text-[#2E3192] bg-[#2E3192]/10",
+    },
+    {
+      label: "Total de categorias",
+      value: categories.length,
+      icon: Tag,
+      color: "text-[#2E3192] bg-[#2E3192]/10",
+    },
+    {
+      label: "Em destaque",
+      value: featuredCount,
+      icon: Star,
+      color: "text-amber-600 bg-amber-50",
+    },
+    {
+      label: "Em promoção",
+      value: onSaleCount,
+      icon: Percent,
+      color: "text-accent-600 bg-accent-50",
+    },
+    {
+      label: "Indisponíveis",
+      value: unavailableCount,
+      icon: XCircle,
+      color: "text-gray-500 bg-gray-100",
+    },
+  ];
+
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2E3192]">
+          Dashboard
+        </h1>
         <p className="text-gray-500 mt-1">Visão geral do catálogo.</p>
       </div>
 
@@ -48,52 +82,52 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <Link
           to={ROUTES.ADMIN_PRODUCTS_NEW}
-          className="card p-5 flex items-center gap-4 hover:shadow-md hover:border-primary-200 transition-all group"
+          className="card p-5 flex items-center gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all group"
         >
-          <div className="h-12 w-12 rounded-xl bg-primary-600 text-white flex items-center justify-center group-hover:scale-105 transition-transform">
+          <div className="h-12 w-12 rounded-xl bg-[#2E3192] text-white flex items-center justify-center group-hover:scale-105 transition-transform">
             <PlusCircle className="h-6 w-6" />
           </div>
           <div>
-            <p className="font-semibold text-gray-900">Novo produto</p>
+            <p className="font-bold text-gray-900">Novo produto</p>
             <p className="text-sm text-gray-500">Cadastrar item no catálogo</p>
           </div>
         </Link>
 
         <Link
           to={ROUTES.ADMIN_CATEGORIES_NEW}
-          className="card p-5 flex items-center gap-4 hover:shadow-md hover:border-primary-200 transition-all group"
+          className="card p-5 flex items-center gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all group"
         >
-          <div className="h-12 w-12 rounded-xl bg-accent-500 text-white flex items-center justify-center group-hover:scale-105 transition-transform">
+          <div className="h-12 w-12 rounded-xl  bg-[#E30613] text-white flex items-center justify-center group-hover:scale-105 transition-transform">
             <FolderPlus className="h-6 w-6" />
           </div>
           <div>
-            <p className="font-semibold text-gray-900">Nova categoria</p>
+            <p className="font-bold text-gray-900">Nova categoria</p>
             <p className="text-sm text-gray-500">Organizar os produtos</p>
           </div>
         </Link>
 
         <Link
           to={ROUTES.ADMIN_PRODUCTS}
-          className="card p-5 flex items-center gap-4 hover:shadow-md hover:border-primary-200 transition-all group"
+          className="card p-5 flex items-center gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all group"
         >
           <div className="h-12 w-12 rounded-xl bg-gray-100 text-gray-700 flex items-center justify-center group-hover:scale-105 transition-transform">
             <List className="h-6 w-6" />
           </div>
           <div>
-            <p className="font-semibold text-gray-900">Ver produtos</p>
+            <p className="font-bold text-gray-900">Ver produtos</p>
             <p className="text-sm text-gray-500">Editar ou remover itens</p>
           </div>
         </Link>
 
         <Link
           to={ROUTES.ADMIN_CATEGORIES}
-          className="card p-5 flex items-center gap-4 hover:shadow-md hover:border-primary-200 transition-all group"
+          className="card p-5 flex items-center gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all group"
         >
           <div className="h-12 w-12 rounded-xl bg-gray-100 text-gray-700 flex items-center justify-center group-hover:scale-105 transition-transform">
             <Tag className="h-6 w-6" />
           </div>
           <div>
-            <p className="font-semibold text-gray-900">Ver categorias</p>
+            <p className="font-bold text-gray-900">Ver categorias</p>
             <p className="text-sm text-gray-500">
               Editar ou remover categorias
             </p>
@@ -103,39 +137,30 @@ export default function DashboardPage() {
 
       {/* Estatísticas */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
-        <StatCard
-          label="Total de produtos"
-          value={products.length}
-          icon={Package}
-        />
-        <StatCard
-          label="Total de categorias"
-          value={categories.length}
-          icon={Tag}
-          colorClass="bg-primary-50 text-primary-600"
-        />
-        <StatCard
-          label="Em destaque"
-          value={featuredCount}
-          icon={Star}
-          colorClass="bg-yellow-50 text-yellow-600"
-        />
-        <StatCard
-          label="Em promoção"
-          value={onSaleCount}
-          icon={Percent}
-          colorClass="bg-red-50 text-red-600"
-        />
-        <StatCard
-          label="Indisponíveis"
-          value={unavailableCount}
-          icon={XCircle}
-          colorClass="bg-gray-100 text-gray-600"
-        />
+        {stats.map(({ label, value, icon: Icon, color }) => (
+          <div
+            key={label}
+            className="card p-4 sm:p-5 flex items-center gap-3 sm:gap-4"
+          >
+            <div
+              className={`h-10 w-10 sm:h-12 sm:w-12 rounded-xl flex items-center justify-center shrink-0 ${color}`}
+            >
+              <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs sm:text-sm text-gray-500 truncate">
+                {label}
+              </p>
+              <p className="text-lg sm:text-2xl font-extrabold text-gray-900">
+                {value}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="card p-6">
-        <h2 className="font-semibold text-gray-900 mb-4">
+        <h2 className="font-extrabold text-[#2E3192] mb-4">
           Últimos produtos cadastrados
         </h2>
         {latestProducts.length === 0 ? (
@@ -145,24 +170,28 @@ export default function DashboardPage() {
         ) : (
           <div className="divide-y divide-gray-100">
             {latestProducts.map((product) => (
-              <div key={product.id} className="flex items-center gap-4 py-3">
+              <Link
+                key={product.id}
+                to={ROUTES.ADMIN_PRODUCTS_EDIT.replace(":id", product.id)}
+                className="flex items-center gap-4 py-3 hover:bg-gray-50 -mx-2 px-2 rounded-xl transition-colors"
+              >
                 <img
                   src={product.imageUrl}
                   alt={product.name}
                   className="h-12 w-12 rounded-lg object-cover border border-gray-200"
                 />
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-gray-900 truncate">
+                  <p className="font-bold text-gray-900 truncate">
                     {product.name}
                   </p>
                   <p className="text-sm text-gray-500">
                     {product.categoryName}
                   </p>
                 </div>
-                <span className="text-sm font-medium text-gray-700">
+                <span className="text-sm font-bold text-gray-700">
                   {formatPrice(product.price)}
                 </span>
-              </div>
+              </Link>
             ))}
           </div>
         )}
