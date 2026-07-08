@@ -14,7 +14,11 @@ import CategoriesListPage from "./pages/admin/CategoriesListPage";
 import CategoryNewPage from "./pages/admin/CategoryNewPage";
 import SeedPage from "./pages/admin/SeedPage";
 import ProductDetails from "./pages/ProductsDetails";
-// import CategoryDetails from "./pages/Categories";
+import CategoriesDetails from "./pages/CategoryDetails";
+import Products from "./pages/Products";
+import Categories from "./pages/Categories";
+import CategoryEditPage from "./pages/admin/CategoryEditPage";
+import ProductEditPage from "./pages/admin/ProductEditPage";
 
 export default function App() {
   return (
@@ -27,9 +31,12 @@ export default function App() {
           <Route path={ROUTES.HOME} element={<Home />} />
 
           <Route path={ROUTES.PRODUCT_DETAIL} element={<ProductDetails />} />
-          {/* <Route path="/categoria/:slug" element={<CategoryDetails />} /> */}
-
-          {/* Outras rotas públicas (produtos, categorias, sobre, contato) virão aqui depois */}
+          <Route path={ROUTES.PRODUCTS} element={<Products />} />
+          <Route path={ROUTES.CATEGORIES} element={<Categories />} />
+          <Route
+            path={ROUTES.CATEGORY_DETAIL}
+            element={<CategoriesDetails />}
+          />
 
           {/* Login do admin */}
           <Route path={ROUTES.ADMIN_LOGIN} element={<LoginPage />} />
@@ -56,6 +63,14 @@ export default function App() {
               <Route
                 path={ROUTES.ADMIN_CATEGORIES_NEW}
                 element={<CategoryNewPage />}
+              />
+              <Route
+                path={ROUTES.ADMIN_PRODUCTS_EDIT}
+                element={<ProductEditPage />}
+              />
+              <Route
+                path={ROUTES.ADMIN_CATEGORIES_EDIT}
+                element={<CategoryEditPage />}
               />
               <Route path="/admin/seed" element={<SeedPage />} />
             </Route>
