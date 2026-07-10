@@ -80,3 +80,19 @@ body {
     @apply block text-sm font-semibold text-gray-800 mb-2;
   }
 }
+
+@keyframes flameMove {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg) scale(1);
+  }
+
+  50% {
+    transform: translateY(-3px) rotate(4deg) scale(1.12);
+  }
+}
+
+.animate-flame {
+  animation: flameMove 1.2s ease-in-out infinite;
+  transform-origin: center bottom;
+}

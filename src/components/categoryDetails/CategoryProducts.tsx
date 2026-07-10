@@ -5,7 +5,7 @@ import {
   buildWhatsappUrl,
   buildProductInquiryMessage,
 } from "../../utils/whatsapp";
-import { formatPrice } from "../../utils/formatPrice";
+import iconeWhatsApp from "../../assets/images/iconeWhatsApp.png";
 
 interface CategoryProductsProps {
   products: Product[];
@@ -35,7 +35,7 @@ export default function CategoryProducts({
           href={whatsappUrl}
           target="_blank"
           rel="noreferrer"
-          className="hidden items-center gap-2 text-sm font-extrabold text-[#E30613] hover:underline md:flex"
+          className="hidden items-center gap-2 text-sm font-extrabold text-[#E30613] transition hover:underline md:flex"
         >
           Ver todos
           <ChevronRight size={17} />
@@ -43,53 +43,57 @@ export default function CategoryProducts({
       </div>
 
       {products.length > 0 ? (
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-2 justify-center gap-3 sm:grid-cols-[repeat(auto-fill,205px)] sm:gap-4">
           {products.map((product) => (
             <article
               key={product.id}
-              className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="group flex h-[380px] w-full flex-col overflow-hidden rounded-[18px] border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#2E3192]/30 hover:shadow-xl sm:h-[405px] sm:w-[205px]"
             >
               <Link to={`/produtos/${product.id}`} className="block">
-                <div className="h-36 overflow-hidden bg-gradient-to-br from-[#F7F8FC] to-[#2E3192]/10">
+                <div className="relative flex h-[145px] items-center justify-center overflow-hidden bg-white p-3 sm:h-[175px]">
+                  {product.brand && (
+                    <span className="absolute left-3 top-3 z-10 max-w-[130px] truncate rounded-full bg-[#2E3192]/8 px-2.5 py-1 text-[10px] font-bold text-[#2E3192] sm:max-w-[165px]">
+                      {product.brand}
+                    </span>
+                  )}
+
                   <img
                     src={product.imageUrl}
                     alt={product.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
               </Link>
 
-              <div className="p-5">
-                {product.brand && (
-                  <span className="mb-3 inline-flex rounded-full bg-[#E30613]/10 px-3 py-1 text-xs font-extrabold text-[#E30613]">
-                    {product.brand}
-                  </span>
-                )}
-
+              <div className="flex flex-1 flex-col px-3 pb-4 pt-2 sm:px-4">
                 <Link to={`/produtos/${product.id}`}>
-                  <h3 className="text-lg font-extrabold text-gray-900 group-hover:text-[#2E3192]">
+                  <h3 className="line-clamp-3 min-h-[64px] text-[14px] font-black leading-[21px] text-[#111827] transition group-hover:text-[#2E3192] sm:text-[15px] sm:leading-[22px]">
                     {product.name}
                   </h3>
                 </Link>
 
-                <p className="mt-2 min-h-[48px] text-sm leading-6 text-gray-500">
-                  {product.description}
-                </p>
-
-                {product.price !== undefined && (
-                  <p className="mt-1 font-bold text-gray-800">
-                    {formatPrice(product.price)}
+                {product.description && (
+                  <p className="mt-2 line-clamp-2 min-h-[40px] text-[12px] font-medium leading-5 text-gray-600">
+                    {product.description}
                   </p>
                 )}
 
-                <a
-                  href={buildWhatsappUrl(buildProductInquiryMessage(product))}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-5 flex h-10 items-center justify-center rounded-full border border-[#E30613] text-sm font-extrabold text-[#E30613] transition hover:bg-[#E30613] hover:text-white"
-                >
-                  Consultar
-                </a>
+                <div className="mt-auto">
+                  <a
+                    href={buildWhatsappUrl(buildProductInquiryMessage(product))}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex h-12 w-full items-center justify-center gap-2 rounded-full border-2 border-[#25D366] bg-white px-3 text-[12px] font-black text-[#168A43] shadow-sm transition hover:bg-[#E9FFF1] sm:text-[13px]"
+                  >
+                    <img
+                      src={iconeWhatsApp}
+                      alt="WhatsApp"
+                      className="h-7 w-7 shrink-0"
+                    />
+
+                    <span className="whitespace-nowrap">Consultar preço</span>
+                  </a>
+                </div>
               </div>
             </article>
           ))}
@@ -109,7 +113,7 @@ export default function CategoryProducts({
           <button
             type="button"
             onClick={onClearFilters}
-            className="mt-5 rounded-full bg-[#E30613] px-6 py-3 text-sm font-extrabold text-white"
+            className="mt-5 rounded-full bg-[#E30613] px-6 py-3 text-sm font-extrabold text-white transition hover:bg-[#c9000b]"
           >
             Limpar filtros
           </button>

@@ -18,6 +18,7 @@ import {
   buildWhatsappUrl,
 } from "../utils/whatsapp";
 import { Spinner } from "../components/ui/Spinner";
+import BottomNav from "../components/layout/BottomNav";
 
 export default function CategoryDetails() {
   const { slug } = useParams();
@@ -122,6 +123,7 @@ export default function CategoryDetails() {
           />
         </section>
       </main>
+      <BottomNav />
 
       <Footer />
     </>

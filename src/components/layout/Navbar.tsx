@@ -33,15 +33,12 @@ export default function Navbar() {
   function handleNavClick(e: React.MouseEvent, href: string) {
     const [path, hash] = href.split("#");
 
-    // Só intercepta links de âncora (ex: /#sobre, /#contato)
     if (!hash) return;
 
     e.preventDefault();
     setIsOpen(false);
 
     if (location.pathname !== "/") {
-      // Navega pra Home carregando o destino no state,
-      // a própria Home escuta isso e rola até a seção certa.
       navigate(path || "/", { state: { scrollTo: hash } });
     } else {
       document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
@@ -50,7 +47,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-[#2E3192]/95 shadow-lg backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-container-max items-center justify-between px-4 md:px-margin-desktop">
+      <div className="mx-auto flex h-[71px] max-w-container-max items-center justify-between px-4 md:px-margin-desktop">
         <Link to="/" className="group flex items-center gap-3">
           <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white p-1 shadow-md transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl">
             <img
@@ -59,6 +56,7 @@ export default function Navbar() {
               className="h-full w-full object-contain"
             />
           </div>
+
           <div className="leading-tight">
             <h1 className="text-lg font-extrabold text-white md:text-xl">
               {COMPANY.name}
@@ -72,6 +70,7 @@ export default function Navbar() {
         <nav className="hidden items-center gap-7 md:flex">
           {NAV_ITEMS.map((item) => {
             const isActive = item.match(location.pathname);
+
             return (
               <a
                 key={item.label}
@@ -82,6 +81,7 @@ export default function Navbar() {
                 }`}
               >
                 {item.label}
+
                 <span
                   className={`absolute -bottom-2 left-0 h-[3px] rounded-full bg-[#E31E24] transition-all duration-300 ${
                     isActive ? "w-full" : "w-0 group-hover:w-full"
@@ -114,10 +114,11 @@ export default function Navbar() {
       </div>
 
       {isOpen && (
-        <div className="border-t border-white/10 bg-[#2E3192] px-4 py-4 shadow-xl md:hidden animate-slide-down">
+        <div className="animate-slide-down border-t border-white/10 bg-[#2E3192] px-4 py-4 shadow-xl md:hidden">
           <nav className="flex flex-col gap-3">
             {NAV_ITEMS.map((item) => {
               const isActive = item.match(location.pathname);
+
               return (
                 <a
                   key={item.label}
@@ -133,6 +134,7 @@ export default function Navbar() {
                 </a>
               );
             })}
+
             <a
               href={whatsappUrl}
               target="_blank"
