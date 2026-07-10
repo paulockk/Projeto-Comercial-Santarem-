@@ -19,8 +19,6 @@ import Products from "./pages/Products";
 import Categories from "./pages/Categories";
 import CategoryEditPage from "./pages/admin/CategoryEditPage";
 import ProductEditPage from "./pages/admin/ProductEditPage";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore: module has no declaration file (JS file without types)
 import NotFound from "./pages/NotFound";
 
 export default function App() {
