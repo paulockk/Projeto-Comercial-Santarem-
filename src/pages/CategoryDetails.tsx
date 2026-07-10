@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
 
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
@@ -19,6 +18,8 @@ import {
 } from "../utils/whatsapp";
 import { Spinner } from "../components/ui/Spinner";
 import BottomNav from "../components/layout/BottomNav";
+import CategoryNotFound from "./CategoryNotFound";
+import { useParams } from "react-router-dom";
 
 export default function CategoryDetails() {
   const { slug } = useParams();
@@ -73,7 +74,7 @@ export default function CategoryDetails() {
   }
 
   if (!category) {
-    return <Navigate to="/" replace />;
+    return <CategoryNotFound />;
   }
 
   const whatsappUrl = buildWhatsappUrl(
