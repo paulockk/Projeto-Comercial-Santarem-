@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Navigate, useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import ProductNotFound from "./ProductNotFound";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ProductGallery from "../components/productDetails/ProductGallery";
@@ -69,7 +70,7 @@ export default function ProductDetails() {
   }
 
   if (notFound || !product) {
-    return <Navigate to="/" replace />;
+    return <ProductNotFound />;
   }
 
   return (
