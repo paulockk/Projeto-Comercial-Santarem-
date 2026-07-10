@@ -19,6 +19,9 @@ import Products from "./pages/Products";
 import Categories from "./pages/Categories";
 import CategoryEditPage from "./pages/admin/CategoryEditPage";
 import ProductEditPage from "./pages/admin/ProductEditPage";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore: module has no declaration file (JS file without types)
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -37,6 +40,9 @@ export default function App() {
             path={ROUTES.CATEGORY_DETAIL}
             element={<CategoriesDetails />}
           />
+
+          {/* Rota para páginas não encontradas */}
+          <Route path="*" element={<NotFound />} />
 
           {/* Login do admin */}
           <Route path={ROUTES.ADMIN_LOGIN} element={<LoginPage />} />
