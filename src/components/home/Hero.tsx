@@ -1,7 +1,7 @@
 import { MapPin, ShoppingBag } from "lucide-react";
 
 import heroDesktop from "../../assets/images/hero-desktop.png";
-import heroMobile from "../../assets/images/hero-mobile.png";
+import heroMobile from "../../assets/images/Hero-mobile.png";
 
 export default function Hero() {
   return (
