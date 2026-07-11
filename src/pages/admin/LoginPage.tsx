@@ -125,9 +125,8 @@ export default function LoginPage() {
                   autoComplete="email"
                   placeholder="seu@email.com"
                   onFocus={() => setFocused(true)}
-                  onBlur={() => setFocused(false)}
                   className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-lg outline-none transition-all focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
-                  {...register("email")}
+                  {...register("email", { onBlur: () => setFocused(false) })}
                 />
               </div>
 
@@ -163,9 +162,8 @@ export default function LoginPage() {
                   autoComplete="current-password"
                   placeholder="••••••••"
                   onFocus={() => setFocused(true)}
-                  onBlur={() => setFocused(false)}
                   className="w-full pl-10 pr-12 py-3 bg-white border border-gray-300 rounded-lg outline-none transition-all focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
-                  {...register("password")}
+                  {...register("password", { onBlur: () => setFocused(false) })}
                 />
 
                 <button
