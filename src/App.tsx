@@ -12,7 +12,6 @@ import ScrollToTop from "./components/common/ScrollToTop";
 import ProductsListPage from "./pages/admin/ProductsListPage";
 import CategoriesListPage from "./pages/admin/CategoriesListPage";
 import CategoryNewPage from "./pages/admin/CategoryNewPage";
-import SeedPage from "./pages/admin/SeedPage";
 import ProductDetails from "./pages/ProductsDetails";
 import CategoriesDetails from "./pages/CategoryDetails";
 import Products from "./pages/Products";
@@ -76,7 +75,6 @@ export default function App() {
                 path={ROUTES.ADMIN_CATEGORIES_EDIT}
                 element={<CategoryEditPage />}
               />
-              <Route path="/admin/seed" element={<SeedPage />} />
             </Route>
           </Route>
         </Routes>
