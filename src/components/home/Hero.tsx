@@ -42,9 +42,7 @@ export default function Hero() {
 
           {/* Descrição */}
           <p className="mt-6 max-w-md text-base font-medium leading-relaxed text-white/90 md:text-lg">
-            Produtos de qualidade para cuidar
-            <br className="hidden sm:block" />
-            do que faz parte da sua vida.
+            Produtos de qualidade para cuidar do que faz parte da sua vida.
           </p>
 
           {/* Botões — escondidos no mobile */}
