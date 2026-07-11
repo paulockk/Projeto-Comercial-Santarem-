@@ -2,15 +2,18 @@ interface LogoProps {
   size?: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function Logo({ size = 64 }: LogoProps) {
   return (
-    <div>
-      <img
-        alt="Comercial Santarém Logo"
-        className="w-full h-full object-contain"
-        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5zceSnj-gek0iYbzrQr5j8ygQidShifvcfGa6E4lvHhSu7hCOcTGZ-zEiEuKNhLIdLqFq9f3kUpSoKhSkMCcvSxTBToGKystx9DUxQ155ddjEMlPZb8u_-Cit9p6a_IStczwlqBvOkDw8g0H0Du1aRd-ta8xl2ah2dMyz2KyCEzbWVUX9lujif-awZGcfmt7AUG9ADO2AkkfVvehUgKvATPuxlFYSFwS5oj97PfIFBVs1IzOE1zEA3j2CAjXYuxTploM"
-      />
+    <div
+      className="rounded-2xl bg-white shadow-sm border border-gray-100 flex items-center justify-center font-bold select-none"
+      style={{ width: size, height: size }}
+    >
+      <span className="text-red-600" style={{ fontSize: size * 0.42 }}>
+        C
+      </span>
+      <span className="text-[#2E3192]" style={{ fontSize: size * 0.42 }}>
+        S
+      </span>
     </div>
   );
 }
