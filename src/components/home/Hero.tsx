@@ -1,54 +1,68 @@
+import { MapPin, ShoppingBag } from "lucide-react";
+
 import heroDesktop from "../../assets/images/hero-desktop.png";
 import heroMobile from "../../assets/images/hero-mobile.png";
 
 export default function Hero() {
   return (
-    <section className="relative h-[560px] overflow-hidden md:h-[650px]">
-      {/* Desktop */}
+    <section className="relative min-h-[600px] overflow-hidden md:min-h-[520px] lg:min-h-[580px]">
+      {/* Imagem para desktop */}
       <img
         src={heroDesktop}
-        alt="Comercial Santarém"
-        className="absolute inset-0 hidden h-full w-full object-cover md:block"
+        alt="Produtos para pet, piscina e jardim da Comercial Santarém"
+        className="absolute inset-0 hidden h-full w-full object-cover object-center md:block"
       />
 
-      {/* Mobile */}
+      {/* Imagem para mobile */}
       <img
         src={heroMobile}
-        alt="Comercial Santarém"
-        className="absolute inset-0 h-full w-full object-cover md:hidden"
+        alt="Produtos para pet, piscina e jardim da Comercial Santarém"
+        className="absolute inset-0 h-full w-full object-cover object-center md:hidden"
       />
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent" />
+      {/* Overlay desktop */}
+      <div className="absolute inset-0 hidden bg-gradient-to-r from-[#061A43]/95 via-[#061A43]/60 to-transparent md:block" />
+
+      {/* Overlay mobile */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#061A43]/90 via-[#061A43]/55 to-black/20 md:hidden" />
 
       {/* Conteúdo */}
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl items-start px-6 pt-20 md:items-center md:px-12 md:pt-0">
-        <div className="max-w-xl">
+      <div className="relative z-10 flex min-h-[600px] items-start px-5 pt-16 sm:px-8 md:min-h-[520px] md:items-center md:px-8 md:pt-0 lg:min-h-[580px] lg:px-12">
+        <div className="max-w-[520px]">
           {/* Título */}
-          <h1 className="mb-5 text-4xl font-extrabold leading-tight text-white md:text-6xl">
-            Tudo para seu
+          <h1 className="text-[44px] font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-[58px] lg:text-[64px]">
+            Tudo para
             <br />
-            <span className="text-white">Pet,</span>{" "}
-            <span className="text-sky-400">Piscina</span>
+            seu <span className="text-[#44D177]">Pet,</span>
             <br />
-            <span className="text-white">e</span>{" "}
-            <span className="text-green-400">Jardim!</span>
+            <span className="text-[#20AEEF]">Piscina</span>
+            <br className="sm:hidden" /> e{" "}
+            <span className="text-[#44D177]">Jardim!</span>
           </h1>
 
-          {/* Botões */}
-          <div className="mt-44 flex flex-wrap gap-6">
+          {/* Descrição */}
+          <p className="mt-6 max-w-md text-base font-medium leading-relaxed text-white/90 md:text-lg">
+            Produtos de qualidade para cuidar
+            <br className="hidden sm:block" />
+            do que faz parte da sua vida.
+          </p>
+
+          {/* Botões — escondidos no mobile */}
+          <div className="mt-8 hidden gap-4 sm:flex">
             <a
               href="#produtos"
-              className="rounded-xl bg-[#E31E24] px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-red-700 cursor-pointer"
+              className="inline-flex min-h-14 items-center justify-center gap-3 rounded-xl bg-[#E31E24] px-7 py-4 text-base font-bold text-white shadow-lg shadow-black/20 transition duration-300 hover:-translate-y-1 hover:bg-[#C9181E] hover:shadow-xl"
             >
-              Ver Ofertas
+              <ShoppingBag size={20} strokeWidth={2.2} />
+              Ver produtos
             </a>
 
             <a
               href="#contato"
-              className="rounded-xl border border-white/30 bg-[#2E3192] px-8 py-4 font-semibold text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-[#23257A] cursor-pointer"
+              className="inline-flex min-h-14 items-center justify-center gap-3 rounded-xl border border-white/70 bg-white/10 px-7 py-4 text-base font-bold text-white shadow-lg backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:bg-white hover:text-[#2E3192]"
             >
-              Nossa Loja
+              <MapPin size={20} strokeWidth={2.2} />
+              Conhecer a loja
             </a>
           </div>
         </div>

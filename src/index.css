@@ -2,19 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
+/* Evita que padding e bordas aumentem a largura dos elementos */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  min-width: 320px;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+
   font-family:
     system-ui,
     -apple-system,
-    Segoe UI,
+    "Segoe UI",
     Roboto,
     sans-serif;
-  background-color: #f7fafc;
-  scroll-behavior: smooth;
+
+  background-color: #f7f8fc;
+  color: #111827;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+#root {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Efeito de brilho dos cards */
 
 @keyframes shine {
   0% {
@@ -36,16 +86,17 @@ body {
   position: absolute;
   top: 0;
   left: -120%;
+  z-index: 50;
   width: 60%;
   height: 100%;
+  pointer-events: none;
+
   background: linear-gradient(
     120deg,
     transparent,
     rgba(255, 255, 255, 0.425),
     transparent
   );
-  pointer-events: none;
-  z-index: 50;
 }
 
 .card-shine:hover::before {
@@ -53,10 +104,6 @@ body {
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
     @apply bg-[#F7F8FC] text-gray-900 antialiased;
   }
@@ -64,22 +111,25 @@ body {
 
 @layer components {
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 
   .card {
-    @apply bg-white rounded-2xl border border-gray-100 shadow-sm;
+    @apply rounded-2xl border border-gray-100 bg-white shadow-sm;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2
-    focus:ring-[#2E3192]/30 focus:border-[#2E3192] transition-all duration-200 text-sm bg-white;
+    @apply w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm
+      transition-all duration-200 focus:border-[#2E3192] focus:outline-none
+      focus:ring-2 focus:ring-[#2E3192]/30;
   }
 
   .label-field {
-    @apply block text-sm font-semibold text-gray-800 mb-2;
+    @apply mb-2 block text-sm font-semibold text-gray-800;
   }
 }
+
+/* Animação da chama */
 
 @keyframes flameMove {
   0%,
