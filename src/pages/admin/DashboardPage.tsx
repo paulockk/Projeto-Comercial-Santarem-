@@ -14,6 +14,7 @@ import { useCategories } from "../../hooks/useCategories";
 import { Spinner } from "../../components/ui/Spinner";
 import { formatPrice } from "../../utils/formatPrice";
 import { ROUTES } from "../../constants/routes";
+import { optimizeImageUrl } from "../../utils/imageOptimizer";
 
 export default function DashboardPage() {
   const { products, isLoading: isLoadingProducts } = useProducts();
@@ -176,7 +177,10 @@ export default function DashboardPage() {
                 className="flex items-center gap-4 py-3 hover:bg-gray-50 -mx-2 px-2 rounded-xl transition-colors"
               >
                 <img
-                  src={product.imageUrl}
+                  src={optimizeImageUrl(product.imageUrl, {
+                    width: 100,
+                    height: 100,
+                  })}
                   alt={product.name}
                   className="h-12 w-12 rounded-lg object-cover border border-gray-200"
                 />

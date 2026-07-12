@@ -10,6 +10,7 @@ import { formatPrice } from "../../utils/formatPrice";
 import { deleteProduct } from "../../services/product.service";
 import { ROUTES } from "../../constants/routes";
 import type { Product } from "../../types/product.types";
+import { optimizeImageUrl } from "../../utils/imageOptimizer";
 
 export default function ProductsListPage() {
   const { products, isLoading, refetch } = useProducts();
@@ -140,8 +141,12 @@ export default function ProductsListPage() {
           {filteredProducts.map((product) => (
             <div key={product.id} className="card p-4 flex gap-4">
               <img
-                src={product.imageUrl}
+                src={optimizeImageUrl(product.imageUrl, {
+                  width: 100,
+                  height: 100,
+                })}
                 alt={product.name}
+                loading="lazy"
                 className="h-16 w-16 rounded-lg object-cover border border-gray-200 flex-shrink-0"
               />
               <div className="min-w-0 flex-1">
