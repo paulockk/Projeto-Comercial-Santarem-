@@ -20,10 +20,10 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
 
       <aside
         className={`
-          fixed lg:sticky top-0 left-0 h-screen w-72 bg-[#2E3192] z-50
-          flex flex-col transition-transform duration-300 ease-in-out
-          ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0
-        `}
+    fixed lg:sticky top-0 left-0 h-screen lg:h-auto lg:min-h-screen w-72 bg-[#2E3192] z-50
+    flex flex-col transition-transform duration-300 ease-in-out
+    ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0
+  `}
       >
         <div className="flex items-center justify-between px-6 h-16 border-b border-white/10">
           <div className="flex items-center gap-3">
