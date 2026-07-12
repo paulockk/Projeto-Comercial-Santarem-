@@ -6,6 +6,7 @@ import {
   buildProductInquiryMessage,
 } from "../../utils/whatsapp";
 import iconeWhatsApp from "../../assets/images/iconeWhatsApp.png";
+import { optimizeImageUrl } from "../../utils/imageOptimizer";
 
 interface CategoryProductsProps {
   products: Product[];
@@ -58,9 +59,12 @@ export default function CategoryProducts({
                   )}
 
                   <img
-                    src={product.imageUrl}
+                    src={optimizeImageUrl(product.imageUrl, {
+                      width: 400,
+                      height: 300,
+                    })}
                     alt={product.name}
-                    className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
               </Link>

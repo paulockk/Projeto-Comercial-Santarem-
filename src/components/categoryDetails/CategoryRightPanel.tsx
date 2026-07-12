@@ -4,6 +4,7 @@ import {
   buildWhatsappUrl,
   buildProductInquiryMessage,
 } from "../../utils/whatsapp";
+import { optimizeImageUrl } from "../../utils/imageOptimizer";
 
 interface CategoryRightPanelProps {
   topProducts: Product[];
@@ -42,9 +43,12 @@ export default function CategoryRightPanel({
 
               <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden">
                 <img
-                  src={product.imageUrl}
+                  src={optimizeImageUrl(product.imageUrl, {
+                    width: 100,
+                    height: 100,
+                  })}
                   alt={product.name}
-                  className="max-h-full max-w-full object-contain"
+                  className="h-full w-full object-cover"
                 />
               </div>
 
