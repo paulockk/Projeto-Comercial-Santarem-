@@ -67,7 +67,7 @@ export default function Hero() {
       <a
         href="#produtos"
         aria-label="Ir para os produtos"
-        className="absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/80 transition hover:text-white md:flex"
+        className="absolute bottom-20 left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/80 transition hover:text-white md:flex"
       >
         <span className="text-xs font-semibold uppercase tracking-[0.2em]">
           Explorar
