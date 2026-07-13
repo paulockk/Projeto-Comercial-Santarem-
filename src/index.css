@@ -146,3 +146,17 @@ select {
   animation: flameMove 1.2s ease-in-out infinite;
   transform-origin: center bottom;
 }
+
+@keyframes banner-progress {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.animate-banner-progress {
+  animation: banner-progress 5s linear forwards;
+}

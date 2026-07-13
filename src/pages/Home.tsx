@@ -8,6 +8,7 @@ import CategorySection from "../components/home/CategorySection";
 import FeaturedProducts from "../components/home/FeaturedProducts";
 import StoreLocation from "../components/home/StoreLocation";
 import HistorySection from "../components/home/HistorySection";
+import PromotionalBanner from "../components/home/PromotionalBanner";
 
 export default function Home() {
   const location = useLocation();
@@ -36,12 +37,15 @@ export default function Home() {
   }, [location.state]);
 
   return (
+
     <div className="min-h-screen bg-surface pb-4 font-jakarta text-on-surface">
       <Navbar />
       <main className="pt-16">
         <section id="inicio">
           <Hero />
+          <PromotionalBanner />
         </section>
+
         <section id="categorias" className="scroll-mt-20">
           <CategorySection />
         </section>
