@@ -18,7 +18,7 @@ export default function ProductGallery({ product }: Props) {
         <img
           src={optimizeImageUrl(product.imageUrl, { width: 900 })}
           alt={product.name}
-          className="h-[260px] w-full object-cover sm:h-[340px] md:h-[420px] lg:h-[520px]"
+          className="h-[260px] w-full object-contain sm:h-[340px] md:h-[420px] lg:h-[520px]"
         />
       </div>
     </div>
