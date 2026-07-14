@@ -27,7 +27,6 @@ export default function Home() {
     const firstAttempt = setTimeout(scrollToSection, 100);
 
     // Segunda tentativa: depois que imagens abaixo tiveram tempo de carregar
-    // e a altura da página já se estabilizou (cobre o caso "veio de outra página")
     const secondAttempt = setTimeout(scrollToSection, 600);
 
     return () => {
@@ -37,7 +36,6 @@ export default function Home() {
   }, [location.state]);
 
   return (
-
     <div className="min-h-screen bg-surface pb-4 font-jakarta text-on-surface">
       <Navbar />
       <main className="pt-16">
