@@ -33,27 +33,18 @@ export default function BottomNav() {
 
   return (
     <div className="fixed bottom-6 right-5 z-50 flex items-center gap-3">
-      <div
-        className={`rounded-2xl px-4 py-3 text-sm font-bold shadow-xl ${
-          open ? "bg-green-100 text-green-800" : "bg-red-100 text-red-700"
-        }`}
-      >
-        <div className="flex items-center gap-2">
-          <span
-            className={`h-2.5 w-2.5 rounded-full ${
-              open ? "bg-green-500" : "bg-red-500"
-            }`}
-          />
+      {!open && (
+        <div className="rounded-2xl bg-red-100 px-4 py-3 text-sm font-bold text-red-700 shadow-xl">
+          <div className="flex items-center gap-2">
+            <span className="h-2.5 w-2.5 rounded-full bg-red-500" />
+            Estamos fechados
+          </div>
 
-          {open ? "Estamos abertos" : "Estamos fechados"}
+          <p className="mt-1 text-xs font-medium opacity-80">
+            Responderemos no próximo horário
+          </p>
         </div>
-
-        <p className="mt-1 text-xs font-medium opacity-80">
-          {open
-            ? "Atendimento pelo WhatsApp"
-            : "Responderemos no próximo horário"}
-        </p>
-      </div>
+      )}
 
       <a
         href="https://wa.me/5514981421678?text=Olá! Gostaria de saber mais sobre os produtos."
