@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Search, X, SlidersHorizontal} from "lucide-react";
+import { Search, X, SlidersHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import Navbar from "../components/layout/Navbar";
@@ -107,7 +107,6 @@ export default function Products() {
               >
                 <SlidersHorizontal className="h-4 w-4" />
                 Categorias
-
                 {activeCategoryId !== "Todos" && (
                   <span className="h-2 w-2 rounded-full bg-[#E31E24]" />
                 )}
@@ -191,7 +190,7 @@ function ProductCatalogCard({ product }: ProductCatalogCardProps) {
       <Link to={`/produtos/${product.id}`} className="block">
         <div className="relative flex h-[145px] items-center justify-center overflow-hidden bg-white p-3 sm:h-[175px]">
           {product.brand && (
-            <span className="absolute left-3 top-3 z-10 max-w-[130px] truncate rounded-full bg-[#2E3192]/8 px-2.5 py-1 text-[10px] font-bold text-[#2E3192] sm:max-w-[165px]">
+            <span className="absolute left-3 top-3 z-10 max-w-[130px] truncate rounded-full bg-[#2E3192]/80 px-2.5 py-1 text-[10px] font-bold text-white sm:max-w-[165px]">
               {product.brand}
             </span>
           )}
