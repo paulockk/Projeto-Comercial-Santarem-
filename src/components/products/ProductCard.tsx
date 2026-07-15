@@ -6,7 +6,6 @@ import {
   buildWhatsappUrl,
   buildProductInquiryMessage,
 } from "../../utils/whatsapp";
-import { optimizeImageUrl } from "../../utils/imageOptimizer";
 
 interface ProductCardProps {
   product: Product;
@@ -27,10 +26,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <Link to={`/produtos/${product.id}`} className="block">
         <div className="relative aspect-square overflow-hidden bg-[#F7F8FC] p-4">
           <img
-            src={optimizeImageUrl(product.imageUrl, {
-              width: 400,
-              height: 400,
-            })}
+            src={product.imageUrl}
             alt={product.name}
             loading="lazy"
             className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-110"

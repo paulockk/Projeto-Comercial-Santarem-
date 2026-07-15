@@ -1,5 +1,4 @@
 import type { Product } from "../../types/product.types";
-import { optimizeImageUrl } from "../../utils/imageOptimizer";
 
 interface Props {
   product: Product;
@@ -16,7 +15,7 @@ export default function ProductGallery({ product }: Props) {
         )}
 
         <img
-          src={optimizeImageUrl(product.imageUrl, { width: 900 })}
+          src={product.imageUrl}
           alt={product.name}
           className="h-[260px] w-full object-contain sm:h-[340px] md:h-[420px] lg:h-[520px]"
         />

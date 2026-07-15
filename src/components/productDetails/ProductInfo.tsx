@@ -33,14 +33,14 @@ export default function ProductInfo({ product }: Props) {
         {product.name}
       </h1>
 
-      {product.price !== undefined && (
+      {product.price !== null && (
         <p className="mt-3 text-2xl font-bold text-gray-800">
           {formatPrice(product.price)}
         </p>
       )}
 
       {product.description && (
-        <p className="mt-5 max-w-2xl text-base leading-7 text-gray-600 md:text-lg md:leading-8">
+        <p className="mt-5 max-w-2xl whitespace-pre-line text-base leading-7 text-gray-600 md:text-lg md:leading-8">
           {product.description}
         </p>
       )}
