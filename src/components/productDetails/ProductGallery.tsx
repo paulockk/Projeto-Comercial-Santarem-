@@ -6,8 +6,8 @@ interface Props {
 
 export default function ProductGallery({ product }: Props) {
   return (
-    <div className="rounded-[24px] bg-[#F1F3FA] p-3 md:p-5">
-      <div className="relative overflow-hidden rounded-[22px] bg-white">
+    <div className="mx-auto aspect-square w-full max-w-[585px] rounded-[24px] bg-[#F1F3FA] p-3 md:p-5">
+      <div className="relative h-full w-full overflow-hidden rounded-[22px] bg-white">
         {product.onSale && (
           <span className="absolute left-4 top-4 z-10 rounded-full bg-[#E30613] px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-white shadow-md">
             Promoção
@@ -17,7 +17,7 @@ export default function ProductGallery({ product }: Props) {
         <img
           src={product.imageUrl}
           alt={product.name}
-          className="h-[260px] w-full object-contain sm:h-[340px] md:h-[420px] lg:h-[520px]"
+          className="h-full w-full object-contain p-4 md:p-6"
         />
       </div>
     </div>
