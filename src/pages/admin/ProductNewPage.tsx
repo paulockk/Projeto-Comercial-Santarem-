@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
@@ -22,6 +22,7 @@ export default function ProductNewPage() {
   const {
     register,
     handleSubmit,
+    control,
     watch,
     formState: { errors },
   } = useForm<ProductSchemaData>({
@@ -249,28 +250,43 @@ export default function ProductNewPage() {
         <hr className="border-gray-100" />
 
         {/* Visibilidade */}
-        <div className="space-y-4">
-          <h2 className="text-xs font-bold uppercase tracking-wide text-[#2E3192]">
-            Visibilidade
-          </h2>
-
-          <div className="grid sm:grid-cols-3 gap-4">
-            <Toggle
-              label="Em destaque"
-              description="Aparece na home"
-              {...register("featured")}
-            />
-            <Toggle
-              label="Em promoção"
-              description="Aparece na seção de ofertas"
-              {...register("onSale")}
-            />
-            <Toggle
-              label="Disponível"
-              description="Visível no catálogo"
-              {...register("available")}
-            />
-          </div>
+        <div className="grid sm:grid-cols-3 gap-4">
+          <Controller
+            name="featured"
+            control={control}
+            render={({ field }) => (
+              <Toggle
+                label="Em destaque"
+                description="Aparece na home"
+                checked={field.value}
+                onChange={field.onChange}
+              />
+            )}
+          />
+          <Controller
+            name="onSale"
+            control={control}
+            render={({ field }) => (
+              <Toggle
+                label="Em promoção"
+                description="Aparece na seção de ofertas"
+                checked={field.value}
+                onChange={field.onChange}
+              />
+            )}
+          />
+          <Controller
+            name="available"
+            control={control}
+            render={({ field }) => (
+              <Toggle
+                label="Disponível"
+                description="Visível no catálogo"
+                checked={field.value}
+                onChange={field.onChange}
+              />
+            )}
+          />
         </div>
 
         <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-2 border-t border-gray-100">
