@@ -105,9 +105,9 @@ export default function PromotionalBanner() {
             type="button"
             onClick={previousSlide}
             aria-label="Banner anterior"
-            className="absolute left-1 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#2E3192]/20 bg-white text-[#2E3192] shadow-lg transition duration-300 hover:scale-105 hover:bg-[#2E3192] hover:text-white sm:left-2 md:-left-1 md:h-12 md:w-12"
+            className="absolute left-1 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-[#2E3192] transition duration-300 hover:scale-110 hover:text-[#E30613] sm:left-2 md:-left-1 md:h-12 md:w-12"
           >
-            <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+            <ChevronLeft className="h-7 w-7 md:h-9 md:w-9" />
           </button>
 
           {/* Botão próximo */}
@@ -115,9 +115,9 @@ export default function PromotionalBanner() {
             type="button"
             onClick={nextSlide}
             aria-label="Próximo banner"
-            className="absolute right-1 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#2E3192]/20 bg-white text-[#2E3192] shadow-lg transition duration-300 hover:scale-105 hover:bg-[#2E3192] hover:text-white sm:right-2 md:-right-1 md:h-12 md:w-12"
+            className="absolute right-1 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-[#2E3192] transition duration-300 hover:scale-110 hover:text-[#E30613] sm:right-2 md:-right-1 md:h-12 md:w-12"
           >
-            <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+            <ChevronRight className="h-7 w-7 md:h-9 md:w-9" />
           </button>
         </div>
 
