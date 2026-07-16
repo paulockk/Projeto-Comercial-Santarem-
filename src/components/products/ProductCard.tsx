@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+
 import type { Product } from "../../types/product.types";
 import iconeWhatsApp from "../../assets/images/iconeWhatsApp.png";
 import {
@@ -12,7 +13,9 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const whatsappUrl = buildWhatsappUrl(buildProductInquiryMessage(product));
+  const whatsappUrl = buildWhatsappUrl(
+    buildProductInquiryMessage(product),
+  );
 
   return (
     <motion.div
@@ -23,8 +26,12 @@ export default function ProductCard({ product }: ProductCardProps) {
       whileHover={{ y: -8, scale: 1.02 }}
       className="card-shine group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-outline-variant bg-white shadow-sm transition-shadow duration-300 hover:shadow-2xl"
     >
-      <Link to={`/produtos/${product.id}`} className="block">
-        <div className="relative aspect-square overflow-hidden bg-[#F7F8FC] p-4">
+      {/* Imagem do produto */}
+      <Link
+        to={`/produtos/${product.id}`}
+        className="block bg-white"
+      >
+        <div className="relative aspect-square overflow-hidden bg-white p-4">
           <img
             src={product.imageUrl}
             alt={product.name}
@@ -40,21 +47,30 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
       </Link>
 
-      <div className="flex flex-1 flex-col p-4 pt-2">
+      {/* Informações do produto */}
+      <div className="flex flex-1 flex-col bg-white p-4 pt-2">
         <Link to={`/produtos/${product.id}`}>
           <h4 className="mb-4 min-h-[56px] text-lg font-semibold text-gray-800 transition-colors duration-300 group-hover:text-[#2E3192]">
             {product.name}
           </h4>
         </Link>
 
+        {/* Botão do WhatsApp */}
         <a
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={`Consultar preço de ${product.name} pelo WhatsApp`}
           className="mt-auto flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-[#1EBE5D] active:scale-95"
         >
-          <img src={iconeWhatsApp} alt="WhatsApp" className="h-8 w-8" />
-          Consultar preço
+          <img
+            src={iconeWhatsApp}
+            alt=""
+            aria-hidden="true"
+            className="h-8 w-8 object-contain"
+          />
+
+          <span>Consultar preço</span>
         </a>
       </div>
     </motion.div>
