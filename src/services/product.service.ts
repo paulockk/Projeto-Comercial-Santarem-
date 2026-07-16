@@ -70,8 +70,8 @@ export async function getFeaturedProducts(max = 8): Promise<Product[]> {
   const snapshot = await getDocs(
     query(
       productsRef,
-      // where("featured", "==", true),
-      // where("available", "==", true),
+      where("featured", "==", true),
+      where("available", "==", true),
       orderBy("createdAt", "desc"),
       firestoreLimit(max),
     ),
