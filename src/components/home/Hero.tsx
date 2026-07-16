@@ -28,7 +28,7 @@ export default function Hero() {
 
       {/* Conteúdo */}
       <div className="relative z-10 flex min-h-[100svh] w-full items-start px-5 pb-10 pt-28 sm:px-8 md:items-center md:px-10 md:pb-0 md:pt-16 lg:px-16 xl:px-24">
-        <div className="max-w-[560px]">
+        <div className="w-full max-w-[560px]">
           <h1 className="text-[44px] font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-[58px] lg:text-[64px] xl:text-[70px]">
             Tudo para
             <br />
@@ -43,27 +43,38 @@ export default function Hero() {
             Produtos de qualidade para cuidar do que faz parte da sua vida.
           </p>
 
-          <div className="mt-8 hidden flex-wrap gap-4 sm:flex">
+          {/* Botões */}
+          <div className="mt-12 grid w-full grid-cols-2 gap-3 sm:mt-8 sm:flex sm:flex-wrap sm:gap-4">
             <a
               href="#produtos"
-              className="inline-flex min-h-14 items-center justify-center gap-3 rounded-xl bg-[#E31E24] px-7 py-4 text-base font-bold text-white shadow-lg shadow-black/20 transition duration-300 hover:-translate-y-1 hover:bg-[#C9181E] hover:shadow-xl"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#E31E24] px-3 py-3 text-center text-sm font-bold text-white shadow-lg shadow-black/20 transition duration-300 hover:-translate-y-1 hover:bg-[#C9181E] hover:shadow-xl sm:min-h-14 sm:gap-3 sm:px-7 sm:py-4 sm:text-base"
             >
-              <ShoppingBag size={20} strokeWidth={2.2} />
-              Ver produtos
+              <ShoppingBag
+                size={19}
+                strokeWidth={2.2}
+                className="shrink-0"
+              />
+
+              <span>Ver produtos</span>
             </a>
 
             <a
               href="#contato"
-              className="inline-flex min-h-14 items-center justify-center gap-3 rounded-xl border border-white/70 bg-white/10 px-7 py-4 text-base font-bold text-white shadow-lg backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:bg-white hover:text-[#2E3192]"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/70 bg-white/10 px-3 py-3 text-center text-sm font-bold text-white shadow-lg backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:bg-white hover:text-[#2E3192] sm:min-h-14 sm:gap-3 sm:px-7 sm:py-4 sm:text-base"
             >
-              <MapPin size={20} strokeWidth={2.2} />
-              Conhecer a loja
+              <MapPin
+                size={19}
+                strokeWidth={2.2}
+                className="shrink-0"
+              />
+
+              <span>Conhecer loja</span>
             </a>
           </div>
         </div>
       </div>
 
-      {/* Indicador para descer */}
+      {/* Indicador para descer — desktop */}
       <a
         href="#produtos"
         aria-label="Ir para os produtos"
