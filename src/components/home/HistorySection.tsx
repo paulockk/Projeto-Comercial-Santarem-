@@ -1,8 +1,4 @@
-import {
-  Clock3,
-  PawPrint,
-  ShieldCheck,
-} from "lucide-react";
+import { Clock3, PawPrint, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 
 const cards = [
@@ -30,14 +26,13 @@ const cards = [
     iconBackground: "bg-[#E8F7FF]",
     iconColor: "text-[#168AAD]",
   },
- 
 ];
 
 export default function HistorySection() {
   return (
     <section
       id="sobre"
-      className="w-full bg-surface-container-low px-4 py-14 md:py-20"
+      className="w-full bg-surface-container-low px-7 py-14 md:py-20"
     >
       <div className="mx-auto w-full max-w-container-max px-margin-mobile md:px-margin-desktop">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.65fr] lg:items-start lg:gap-16">

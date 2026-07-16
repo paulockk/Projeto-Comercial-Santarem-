@@ -7,7 +7,7 @@ const mapsUrl =
 
 export default function StoreLocation() {
   return (
-    <section className="bg-surface-container-low px-4 py-12">
+    <section className="bg-surface-container-low px-7 py-12">
       <div className="mx-auto grid max-w-container-max gap-12 px-margin-mobile md:grid-cols-2 md:px-margin-desktop">
         <motion.div
           initial={{ opacity: 0, x: -90 }}

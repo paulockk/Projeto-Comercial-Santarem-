@@ -33,22 +33,12 @@ const categoryColors = [
   },
 ];
 
-const categoryDescriptions: Record<string, string> = {
-  "Pet Shop": "Rações, brinquedos, higiene e acessórios para seu pet.",
-  Piscina: "Produtos e acessórios para manter sua piscina sempre perfeita.",
-  Jardinagem: "Plantas, ferramentas e tudo para seu jardim ficar lindo.",
-  Agropecuária: "Soluções completas para o campo e criação de animais.",
-  "Medicamentos Veterinários":
-    "Saúde e bem-estar para seus animais com segurança.",
-  "Outros Animais": "Aves, peixes, roedores e produtos para outros animais.",
-};
-
 export default function CategorySection() {
   const { categories, isLoading } = useCategories();
 
   if (isLoading) {
     return (
-      <section className="bg-[#F7F8FC] py-16">
+      <section className="bg-[#F7F8FC] py-14">
         <div className="flex justify-center">
           <Spinner size="lg" />
         </div>
@@ -93,13 +83,11 @@ export default function CategorySection() {
           {categories.map((category, index) => {
             const Icon = getIconComponent(category.icon);
 
-            const colorStyle =
-              categoryColors[index % categoryColors.length];
+            const colorStyle = categoryColors[index % categoryColors.length];
 
             const description =
-              categoryDescriptions[category.name] ??
+              category.description?.trim() ||
               "Encontre produtos selecionados para suas necessidades.";
-
             return (
               <Link
                 key={category.id}

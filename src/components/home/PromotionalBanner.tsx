@@ -69,7 +69,7 @@ export default function PromotionalBanner() {
 
   return (
     <section
-      className="w-full bg-[#f7f7f7] py-6 md:py-9"
+      className="w-full bg-[#f7f7f7] py-6 md:py-14"
       aria-label="Ofertas e condições de pagamento"
     >
       <div className="mx-auto w-full max-w-[1217px] px-4 md:px-8">
@@ -78,7 +78,6 @@ export default function PromotionalBanner() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          {/* Banner com proporção exata de 1153 x 311 */}
           <div className="relative mx-auto aspect-[1153/311] w-full max-w-[1153px] overflow-hidden rounded-2xl bg-white shadow-md md:rounded-[22px]">
             {banners.map((banner, index) => {
               const isActive = index === currentSlide;
