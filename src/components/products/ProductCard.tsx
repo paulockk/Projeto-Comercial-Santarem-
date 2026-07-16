@@ -1,78 +1,65 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-
 import type { Product } from "../../types/product.types";
-import iconeWhatsApp from "../../assets/images/iconeWhatsApp.png";
 import {
   buildWhatsappUrl,
   buildProductInquiryMessage,
 } from "../../utils/whatsapp";
+import { formatPrice } from "../../utils/formatPrice";
 
-interface ProductCardProps {
+interface ProductCard {
   product: Product;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
-  const whatsappUrl = buildWhatsappUrl(
-    buildProductInquiryMessage(product),
-  );
+export default function ProductCardCompact({ product }: ProductCard) {
+  const whatsappUrl = buildWhatsappUrl(buildProductInquiryMessage(product));
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40, scale: 0.95 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      className="card-shine group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-outline-variant bg-white shadow-sm transition-shadow duration-300 hover:shadow-2xl"
-    >
-      {/* Imagem do produto */}
-      <Link
-        to={`/produtos/${product.id}`}
-        className="block bg-white"
-      >
-        <div className="relative aspect-square overflow-hidden bg-white p-4">
+    <div className="group flex w-40 shrink-0 snap-start flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-lg sm:w-48">
+      <Link to={`/produtos/${product.id}`} className="block">
+        <div className="relative aspect-square overflow-hidden rounded-lg bg-white p-3">
           <img
             src={product.imageUrl}
             alt={product.name}
             loading="lazy"
-            className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-110"
+            className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-110"
           />
 
           {product.onSale && (
-            <span className="absolute left-3 top-3 rounded-full bg-[#2E3192] px-3 py-1 text-xs font-semibold text-white shadow">
+            <span className="absolute left-2 top-2 rounded-full bg-[#E30613] px-2 py-0.5 text-[10px] font-bold text-white">
               Promoção
             </span>
           )}
         </div>
       </Link>
 
-      {/* Informações do produto */}
-      <div className="flex flex-1 flex-col bg-white p-4 pt-2">
+      <div className="flex flex-1 flex-col p-3">
         <Link to={`/produtos/${product.id}`}>
-          <h4 className="mb-4 min-h-[56px] text-lg font-semibold text-gray-800 transition-colors duration-300 group-hover:text-[#2E3192]">
+          <h4 className="line-clamp-2 min-h-[2.5rem] text-sm font-bold text-gray-800 group-hover:text-[#2E3192]">
             {product.name}
           </h4>
         </Link>
 
-        {/* Botão do WhatsApp */}
+        {product.description && (
+          <p className="mt-1 line-clamp-2 text-xs leading-snug text-gray-400">
+            {product.description}
+          </p>
+        )}
+
+        {product.price !== null && (
+          <p className="mt-2 text-sm font-extrabold text-gray-800">
+            {formatPrice(product.price)}
+          </p>
+        )}
+
         <a
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`Consultar preço de ${product.name} pelo WhatsApp`}
-          className="mt-auto flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-[#1EBE5D] active:scale-95"
+          className="mt-2 flex items-center justify-center rounded-lg bg-[#25D366] px-2 py-2 text-xs font-bold text-white transition hover:bg-[#1EBE5D]"
         >
-          <img
-            src={iconeWhatsApp}
-            alt=""
-            aria-hidden="true"
-            className="h-8 w-8 object-contain"
-          />
-
-          <span>Consultar preço</span>
+          Consultar
         </a>
       </div>
-    </motion.div>
+    </div>
   );
 }
