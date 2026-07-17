@@ -19,6 +19,7 @@ import Categories from "./pages/Categories";
 import CategoryEditPage from "./pages/admin/CategoryEditPage";
 import ProductEditPage from "./pages/admin/ProductEditPage";
 import NotFound from "./pages/NotFound";
+import ProductImportPage from "./pages/admin/ProductImportPage";
 
 export default function App() {
   return (
@@ -70,6 +71,10 @@ export default function App() {
               <Route
                 path={ROUTES.ADMIN_PRODUCTS_EDIT}
                 element={<ProductEditPage />}
+              />
+              <Route
+                path={ROUTES.ADMIN_PRODUCTS_IMPORT}
+                element={<ProductImportPage />}
               />
               <Route
                 path={ROUTES.ADMIN_CATEGORIES_EDIT}
