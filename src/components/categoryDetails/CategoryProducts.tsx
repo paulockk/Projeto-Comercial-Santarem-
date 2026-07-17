@@ -52,13 +52,13 @@ export default function CategoryProducts({
               <Link to={`/produtos/${product.id}`} className="block">
                 <div className="relative flex h-[145px] items-center justify-center overflow-hidden bg-white p-3 sm:h-[175px]">
                   {product.brand && (
-                    <span className="absolute left-3 top-3 z-10 max-w-[130px] truncate rounded-full bg-[#2E3192]/8 px-2.5 py-1 text-[10px] font-bold text-[#2E3192] sm:max-w-[165px]">
+                    <span className="absolute left-3 top-3 z-10 max-w-[130px] truncate rounded-full bg-[#E30613]/8 px-2.5 py-1 text-[10px] font-bold text-[#E30613] sm:max-w-[165px]">
                       {product.brand}
                     </span>
                   )}
 
                   <img
-                    src={product.imageUrl}
+                    src={product.images[0] ?? ""}
                     alt={product.name}
                     className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
                   />
