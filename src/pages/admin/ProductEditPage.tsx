@@ -10,10 +10,10 @@ import {
 } from "../../schemas/product.schema";
 import { useCategories } from "../../hooks/useCategories";
 import { getProductById, updateProduct } from "../../services/product.service";
-import { ImageUrlPreview } from "../../components/ui/ImageUrlPreview";
 import { Toggle } from "../../components/ui/Toggle";
 import { Spinner } from "../../components/ui/Spinner";
 import { ROUTES } from "../../constants/routes";
+import { ImageUrlListField } from "../../components/admin/ImageUrlListField";
 
 export default function ProductEditPage() {
   const { id } = useParams();
@@ -38,7 +38,6 @@ export default function ProductEditPage() {
   });
 
   // eslint-disable-next-line react-hooks/incompatible-library
-  const imageUrl = watch("imageUrl");
   const categoryId = watch("categoryId");
   const selectedCategory = categories.find((c) => c.id === categoryId);
   const availableSubcategories = selectedCategory?.subcategories ?? [];
@@ -58,7 +57,7 @@ export default function ProductEditPage() {
           name: product.name,
           categoryId: product.categoryId,
           subcategory: product.subcategory,
-          imageUrl: product.imageUrl,
+          images: product.images,
           price: product.price,
           description: product.description,
           brand: product.brand,
@@ -198,26 +197,24 @@ export default function ProductEditPage() {
         <hr className="border-gray-100" />
         <div className="space-y-5">
           <h2 className="text-xs font-bold uppercase tracking-wide text-[#2E3192]">
-            Imagem do produto
+            Imagens do produto
           </h2>
 
-          <div>
-            <label htmlFor="imageUrl" className="label-field">
-              URL da imagem *
-            </label>
-            <input
-              id="imageUrl"
-              className="input-field"
-              {...register("imageUrl")}
-            />
-            {errors.imageUrl && (
-              <p className="text-sm text-red-600 mt-1.5">
-                {errors.imageUrl.message}
-              </p>
+          <Controller
+            name="images"
+            control={control}
+            render={({ field }) => (
+              <ImageUrlListField
+                value={field.value ?? []}
+                onChange={field.onChange}
+              />
             )}
-          </div>
-
-          <ImageUrlPreview url={imageUrl} alt="Pré-visualização do produto" />
+          />
+          {errors.images && (
+            <p className="text-sm text-red-600 mt-1.5">
+              {errors.images.message}
+            </p>
+          )}
         </div>
         <hr className="border-gray-100" />
         <div className="space-y-5">

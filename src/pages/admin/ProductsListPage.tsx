@@ -1,6 +1,13 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { PlusCircle, Pencil, Trash2, Search, X } from "lucide-react";
+import {
+  PlusCircle,
+  Pencil,
+  Trash2,
+  Search,
+  X,
+  FileSpreadsheet,
+} from "lucide-react";
 import toast from "react-hot-toast";
 import { useProducts } from "../../hooks/useProducts";
 import { useCategories } from "../../hooks/useCategories";
@@ -71,13 +78,22 @@ export default function ProductsListPage() {
               : `${filteredProducts.length} de ${products.length} produto(s)`}
           </p>
         </div>
-        <Link
-          to={ROUTES.ADMIN_PRODUCTS_NEW}
-          className="btn-primary w-full sm:w-auto bg-[#2E3192] hover:bg-[#242769] text-white font-bold px-5 py-3 rounded-xl inline-flex items-center justify-center gap-2 transition-colors"
-        >
-          <PlusCircle className="h-4 w-4" />
-          Novo produto
-        </Link>
+        <div className="flex gap-3">
+          <Link
+            to={ROUTES.ADMIN_PRODUCTS_IMPORT}
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-3 text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors"
+          >
+            <FileSpreadsheet className="h-4 w-4" />
+            Importar planilha
+          </Link>
+          <Link
+            to={ROUTES.ADMIN_PRODUCTS_NEW}
+            className="btn-primary w-full sm:w-auto bg-[#2E3192] hover:bg-[#242769] text-white font-bold px-5 py-3 rounded-xl inline-flex items-center justify-center gap-2 transition-colors"
+          >
+            <PlusCircle className="h-4 w-4" />
+            Novo produto
+          </Link>
+        </div>
       </div>
 
       {/* Busca e filtro */}
@@ -140,10 +156,10 @@ export default function ProductsListPage() {
           {filteredProducts.map((product) => (
             <div key={product.id} className="card p-4 flex gap-4">
               <img
-                src={product.imageUrl}
+                src={product.images[0] ?? ""}
                 alt={product.name}
                 loading="lazy"
-                className="h-16 w-16 rounded-lg object-cover border border-gray-200 flex-shrink-0"
+                className="h-16 w-16 rounded-lg object-contain border border-gray-200 flex-shrink-0"
               />
               <div className="min-w-0 flex-1">
                 <p className="font-bold text-gray-900 truncate">

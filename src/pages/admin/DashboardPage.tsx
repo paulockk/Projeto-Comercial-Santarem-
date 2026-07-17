@@ -176,9 +176,9 @@ export default function DashboardPage() {
                 className="flex items-center gap-4 py-3 hover:bg-gray-50 -mx-2 px-2 rounded-xl transition-colors"
               >
                 <img
-                  src={product.imageUrl}
+                  src={product.images[0] ?? ""}
                   alt={product.name}
-                  className="h-12 w-12 rounded-lg object-cover border border-gray-200"
+                  className="h-12 w-12 rounded-lg object-contain border border-gray-200"
                 />
                 <div className="flex-1 min-w-0">
                   <p className="font-bold text-gray-900 truncate">

@@ -10,9 +10,9 @@ import {
 } from "../../schemas/product.schema";
 import { useCategories } from "../../hooks/useCategories";
 import { createProduct } from "../../services/product.service";
-import { ImageUrlPreview } from "../../components/ui/ImageUrlPreview";
 import { Toggle } from "../../components/ui/Toggle";
 import { ROUTES } from "../../constants/routes";
+import { ImageUrlListField } from "../../components/admin/ImageUrlListField";
 
 export default function ProductNewPage() {
   const navigate = useNavigate();
@@ -28,11 +28,15 @@ export default function ProductNewPage() {
   } = useForm<ProductSchemaData>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(productSchema) as any,
-    defaultValues: { featured: false, onSale: false, available: true },
+    defaultValues: {
+      featured: false,
+      onSale: false,
+      available: true,
+      images: [],
+    },
   });
 
   // eslint-disable-next-line react-hooks/incompatible-library
-  const imageUrl = watch("imageUrl");
   const categoryId = watch("categoryId");
   const selectedCategory = categories.find((c) => c.id === categoryId);
   const availableSubcategories = selectedCategory?.subcategories ?? [];
@@ -165,31 +169,24 @@ export default function ProductNewPage() {
         {/* Imagem */}
         <div className="space-y-5">
           <h2 className="text-xs font-bold uppercase tracking-wide text-[#2E3192]">
-            Imagem do produto
+            Imagens do produto
           </h2>
 
-          <div>
-            <label htmlFor="imageUrl" className="label-field">
-              URL da imagem *
-            </label>
-            <input
-              id="imageUrl"
-              className="input-field"
-              placeholder="https://exemplo.com/foto-do-produto.jpg"
-              {...register("imageUrl")}
-            />
-            {errors.imageUrl && (
-              <p className="text-sm text-red-600 mt-1.5">
-                {errors.imageUrl.message}
-              </p>
+          <Controller
+            name="images"
+            control={control}
+            render={({ field }) => (
+              <ImageUrlListField
+                value={field.value ?? []}
+                onChange={field.onChange}
+              />
             )}
-            <p className="text-xs text-gray-400 mt-1.5">
-              Cole o link de uma imagem do site do fabricante ou de onde o
-              produto foi comprado.
+          />
+          {errors.images && (
+            <p className="text-sm text-red-600 mt-1.5">
+              {errors.images.message}
             </p>
-          </div>
-
-          <ImageUrlPreview url={imageUrl} alt="Pré-visualização do produto" />
+          )}
         </div>
 
         <hr className="border-gray-100" />
