@@ -28,7 +28,8 @@ function mapDocToProduct(docSnap: any): Product {
     categoryId: data.categoryId,
     categoryName: data.categoryName,
     subcategory: data.subcategory,
-    imageUrl: data.imageUrl,
+    // Fallback: produtos antigos só tinham "imageUrl" (string única)
+    images: data.images ?? (data.imageUrl ? [data.imageUrl] : []),
     price: data.price,
     description: data.description,
     brand: data.brand,
@@ -113,7 +114,8 @@ export async function createProduct(
     categoryId: input.categoryId,
     categoryName: input.categoryName,
     subcategory: input.subcategory ?? "",
-    imageUrl: input.imageUrl,
+    images: input.images,
+    imageUrl: input.images[0] ?? "", // mantido por compatibilidade com código legado
     price: input.price ?? null,
     description: input.description ?? "",
     brand: input.brand ?? "",
@@ -142,7 +144,10 @@ export async function updateProduct(
   if (input.categoryName !== undefined)
     payload.categoryName = input.categoryName;
   if (input.subcategory !== undefined) payload.subcategory = input.subcategory;
-  if (input.imageUrl !== undefined) payload.imageUrl = input.imageUrl;
+  if (input.images !== undefined) {
+    payload.images = input.images;
+    payload.imageUrl = input.images[0] ?? "";
+  }
   if (input.price !== undefined) payload.price = input.price;
   if (input.description !== undefined) payload.description = input.description;
   if (input.brand !== undefined) payload.brand = input.brand;
