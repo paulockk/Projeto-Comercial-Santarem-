@@ -4,7 +4,7 @@ export interface Product {
   categoryId: string;
   categoryName: string;
   subcategory?: string;
-  imageUrl: string;
+  images: string[];
   price?: number;
   description?: string;
   brand?: string;
@@ -19,7 +19,7 @@ export type ProductFormData = {
   name: string;
   categoryId: string;
   subcategory?: string;
-  imageUrl: string;
+  images: string[];
   price?: number;
   description?: string;
   brand?: string;
