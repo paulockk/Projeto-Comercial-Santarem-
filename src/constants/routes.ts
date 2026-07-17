@@ -9,6 +9,7 @@ export const ROUTES = {
   ADMIN_LOGIN: "/admin/login",
   ADMIN_DASHBOARD: "/admin",
   ADMIN_PRODUCTS: "/admin/produtos",
+  ADMIN_PRODUCTS_IMPORT: "/admin/produtos/importar",
   ADMIN_PRODUCTS_NEW: "/admin/produtos/novo",
   ADMIN_PRODUCTS_EDIT: "/admin/produtos/:id/editar",
   ADMIN_CATEGORIES: "/admin/categorias",
