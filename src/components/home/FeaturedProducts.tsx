@@ -1,23 +1,11 @@
-import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useFeaturedProducts } from "../../hooks/useFeaturedProducts";
 import { ROUTES } from "../../constants/routes";
-import ProductCard from "../products/ProductCard";
 import { Spinner } from "../ui/Spinner";
+import ProductCarousel from "../ui/ProductCarousel";
 
 export default function FeaturedProducts() {
   const { products, isLoading } = useFeaturedProducts(12);
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  function scroll(direction: "left" | "right") {
-    if (!scrollRef.current) return;
-    const amount = 320;
-    scrollRef.current.scrollBy({
-      left: direction === "left" ? -amount : amount,
-      behavior: "smooth",
-    });
-  }
 
   if (!isLoading && products.length === 0) {
     return null;
@@ -49,32 +37,7 @@ export default function FeaturedProducts() {
         </div>
       ) : (
         <div className="relative">
-          <button
-            type="button"
-            onClick={() => scroll("left")}
-            className="absolute -left-4 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#2E3192] shadow-lg hover:bg-gray-50 lg:flex"
-            aria-label="Produtos anteriores"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-
-          <div
-            ref={scrollRef}
-            className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-4 md:px-margin-desktop [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-
-          <button
-            type="button"
-            onClick={() => scroll("right")}
-            className="absolute -right-4 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#2E3192] shadow-lg hover:bg-gray-50 lg:flex"
-            aria-label="Próximos produtos"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
+          <ProductCarousel products={products} />
         </div>
       )}
 
