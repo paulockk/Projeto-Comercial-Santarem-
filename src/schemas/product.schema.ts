@@ -4,10 +4,9 @@ export const productSchema = z.object({
   name: z.string().min(1, "O nome é obrigatório").max(120, "Nome muito longo"),
   categoryId: z.string().min(1, "Selecione uma categoria"),
   subcategory: z.string().optional(),
-  imageUrl: z
-    .string()
-    .min(1, "A URL da imagem é obrigatória")
-    .url("Digite uma URL válida (ex: https://...)"),
+  images: z
+    .array(z.string().url("Uma das imagens tem uma URL inválida"))
+    .min(1, "Adicione pelo menos uma imagem"),
   price: z.preprocess(
     (val) => {
       if (val === "" || val === undefined || val === null) return undefined;
@@ -15,7 +14,7 @@ export const productSchema = z.object({
       return val;
     },
     z
-      .number({ error: "Digite um valor numérico" })
+      .number({ message: "Digite um valor numérico" })
       .positive("O preço deve ser maior que zero")
       .optional(),
   ),
