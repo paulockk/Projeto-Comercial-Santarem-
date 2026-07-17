@@ -5,7 +5,7 @@ import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ProductGallery from "../components/productDetails/ProductGallery";
 import ProductInfo from "../components/productDetails/ProductInfo";
-import ProductCard from "../components/products/ProductCard";
+import ProductCarousel from "../components/ui/ProductCarousel";
 import { Spinner } from "../components/ui/Spinner";
 import {
   getProductById,
@@ -45,7 +45,7 @@ export default function ProductDetails() {
         const related = await getProductsByCategory(data.categoryId);
         if (isMounted) {
           setRelatedProducts(
-            related.filter((p) => p.id !== data.id).slice(0, 4),
+            related.filter((p) => p.id !== data.id).slice(0, 10),
           );
         }
       } catch {
@@ -96,11 +96,7 @@ export default function ProductDetails() {
               <h2 className="mb-6 text-2xl font-bold text-[#2E3192]">
                 Produtos relacionados
               </h2>
-              <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4">
-                {relatedProducts.map((related) => (
-                  <ProductCard key={related.id} product={related} />
-                ))}
-              </div>
+              <ProductCarousel products={relatedProducts} />
             </div>
           )}
         </div>

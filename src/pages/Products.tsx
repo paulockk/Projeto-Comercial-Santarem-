@@ -196,7 +196,7 @@ function ProductCatalogCard({ product }: ProductCatalogCardProps) {
           )}
 
           <img
-            src={product.imageUrl}
+            src={product.images[0] ?? ""}
             alt={product.name}
             className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105"
           />
