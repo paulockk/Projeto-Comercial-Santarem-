@@ -18,7 +18,7 @@ export default function ProductCardCompact({ product }: ProductCard) {
       <Link to={`/produtos/${product.id}`} className="block">
         <div className="relative aspect-square overflow-hidden rounded-lg bg-white p-3">
           <img
-            src={product.imageUrl}
+            src={product.images[0] ?? ""}
             alt={product.name}
             loading="lazy"
             className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-110"
