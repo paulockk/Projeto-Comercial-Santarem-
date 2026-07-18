@@ -9,6 +9,7 @@ import FeaturedProducts from "../components/home/FeaturedProducts";
 import StoreLocation from "../components/home/StoreLocation";
 import HistorySection from "../components/home/HistorySection";
 import PromotionalBanner from "../components/home/PromotionalBanner";
+import { SEO } from "../components/common/SEO";
 
 export default function Home() {
   const location = useLocation();
@@ -36,29 +37,35 @@ export default function Home() {
   }, [location.state]);
 
   return (
-    <div className="min-h-screen bg-surface pb-4 font-jakarta text-on-surface">
-      <Navbar />
-      <main className="pt-16">
-        <section id="inicio">
-          <Hero />
-          <PromotionalBanner />
-        </section>
+    <>
+      <SEO
+        fullTitle="Comercial Santarém | Pet Shop e Agropecuária em Lençóis Paulista"
+        description="Encontre produtos para pets, medicamentos veterinários, piscina, jardinagem e agropecuária em Lençóis Paulista. Consulte disponibilidade pelo WhatsApp."
+      />
+      <div className="min-h-screen bg-surface pb-4 font-jakarta text-on-surface">
+        <Navbar />
+        <main className="pt-16">
+          <section id="inicio">
+            <Hero />
+            <PromotionalBanner />
+          </section>
 
-        <section id="categorias" className="scroll-mt-20">
-          <CategorySection />
-        </section>
-        <section id="produtos" className="scroll-mt-20">
-          <FeaturedProducts />
-        </section>
-        <section id="contato" className="scroll-mt-20">
-          <StoreLocation />
-        </section>
-        <section id="sobre" className="scroll-mt-20">
-          <HistorySection />
-        </section>
-      </main>
-      <Footer />
-      <BottomNav />
-    </div>
+          <section id="categorias" className="scroll-mt-20">
+            <CategorySection />
+          </section>
+          <section id="produtos" className="scroll-mt-20">
+            <FeaturedProducts />
+          </section>
+          <section id="contato" className="scroll-mt-20">
+            <StoreLocation />
+          </section>
+          <section id="sobre" className="scroll-mt-20">
+            <HistorySection />
+          </section>
+        </main>
+        <Footer />
+        <BottomNav />
+      </div>
+    </>
   );
 }

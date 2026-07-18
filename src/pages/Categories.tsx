@@ -6,6 +6,7 @@ import { useCategories } from "../hooks/useCategories";
 import { useProducts } from "../hooks/useProducts";
 import { getIconComponent } from "../utils/iconMap";
 import { slugify } from "../utils/slugify";
+import { SEO } from "../components/common/SEO";
 
 export default function Categories() {
   const { categories, isLoading: isLoadingCategories } = useCategories();
@@ -20,6 +21,10 @@ export default function Categories() {
 
   return (
     <>
+      <SEO
+        fullTitle="Categorias"
+        description="Explore os produtos organizados por categoria na Comercial Santarém, em Lençóis Paulista. Consulte disponibilidade pelo WhatsApp."
+      />
       <Navbar />
 
       <main className="min-h-screen bg-[#F7F8FC] pt-20">

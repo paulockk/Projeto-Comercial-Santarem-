@@ -12,6 +12,7 @@ import {
   getProductsByCategory,
 } from "../services/product.service";
 import type { Product } from "../types/product.types";
+import { SEO } from "../components/common/SEO";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -75,6 +76,15 @@ export default function ProductDetails() {
 
   return (
     <>
+      <SEO
+        fullTitle={`${product.name} | Comercial Santarém`}
+        description={
+          product.description ||
+          `${product.name} disponível na Comercial Santarém, em Lençóis Paulista. Consulte preço e disponibilidade pelo WhatsApp.`
+        }
+        image={product.images[0]}
+        url={`/produtos/${product.id}`}
+      />
       <Navbar />
 
       <main className="min-h-screen bg-[#F7F8FC] pt-20">

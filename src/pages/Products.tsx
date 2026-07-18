@@ -8,6 +8,7 @@ import { Spinner } from "../components/ui/Spinner";
 import { useProducts } from "../hooks/useProducts";
 import { useCategories } from "../hooks/useCategories";
 import { slugify } from "../utils/slugify";
+import { SEO } from "../components/common/SEO";
 
 export default function Products() {
   const { products, isLoading: isLoadingProducts } = useProducts();
@@ -87,6 +88,10 @@ export default function Products() {
 
   return (
     <>
+      <SEO
+        fullTitle="Produtos | Comercial Santarém"
+        description="Explore nossa ampla seleção de produtos para pets, medicamentos veterinários, piscina, jardinagem e agropecuária em Lençóis Paulista. Consulte disponibilidade pelo WhatsApp."
+      />
       <Navbar />
 
       <main className="min-h-screen bg-[#F7F8FC] pt-20">

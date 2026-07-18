@@ -20,6 +20,7 @@ import { Spinner } from "../components/ui/Spinner";
 import BottomNav from "../components/layout/BottomNav";
 import CategoryNotFound from "./CategoryNotFound";
 import { useParams } from "react-router-dom";
+import { SEO } from "../components/common/SEO";
 
 export default function CategoryDetails() {
   const { slug } = useParams();
@@ -87,6 +88,15 @@ export default function CategoryDetails() {
 
   return (
     <>
+      <SEO
+        fullTitle={`${category.name} | Comercial Santarém`}
+        description={
+          category.description ||
+          `Confira produtos de ${category.name} disponíveis na Comercial Santarém, em Lençóis Paulista.`
+        }
+        image={undefined}
+        url={`/categoria/${slugify(category.name)}`}
+      />
       <Navbar />
 
       <main className="min-h-screen bg-[#F7F8FC] pt-20">
