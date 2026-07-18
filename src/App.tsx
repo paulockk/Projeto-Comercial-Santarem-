@@ -20,6 +20,7 @@ import CategoryEditPage from "./pages/admin/CategoryEditPage";
 import ProductEditPage from "./pages/admin/ProductEditPage";
 import NotFound from "./pages/NotFound";
 import ProductImportPage from "./pages/admin/ProductImportPage";
+import BottomNav from "./components/layout/BottomNav";
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
       <ScrollToTop />
       <AuthProvider>
         <Toaster position="top-right" />
+        <BottomNav />
         <Routes>
           {/* Rota pública */}
           <Route path={ROUTES.HOME} element={<Home />} />

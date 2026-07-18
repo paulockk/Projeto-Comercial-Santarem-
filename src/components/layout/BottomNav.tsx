@@ -1,4 +1,8 @@
 import { FaWhatsapp } from "react-icons/fa";
+import {
+  buildWhatsappUrl,
+  buildGenericInquiryMessage,
+} from "../../utils/whatsapp";
 
 function isStoreOpen() {
   const now = new Date();
@@ -30,6 +34,9 @@ function isStoreOpen() {
 
 export default function BottomNav() {
   const open = isStoreOpen();
+  const whatsappUrl = buildWhatsappUrl(buildGenericInquiryMessage());
+
+  if (location.pathname.startsWith("/admin")) return null;
 
   return (
     <div className="fixed bottom-6 right-5 z-50 flex items-center gap-3">
@@ -47,7 +54,7 @@ export default function BottomNav() {
       )}
 
       <a
-        href="https://wa.me/5514981421678?text=Olá! Gostaria de saber mais sobre os produtos."
+        href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl transition-all duration-300 hover:scale-110"

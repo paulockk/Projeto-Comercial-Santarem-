@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
-import BottomNav from "../components/layout/BottomNav";
 import Hero from "../components/home/Hero";
 import CategorySection from "../components/home/CategorySection";
 import FeaturedProducts from "../components/home/FeaturedProducts";
@@ -64,7 +63,6 @@ export default function Home() {
           </section>
         </main>
         <Footer />
-        <BottomNav />
       </div>
     </>
   );
