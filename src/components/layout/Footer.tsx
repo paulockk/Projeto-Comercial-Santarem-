@@ -26,9 +26,7 @@ export default function Footer() {
             Contato
           </span>
 
-          <span className="text-gray-600">
-            contato@comercialsantarem.com.br
-          </span>
+          <span className="text-gray-600">vcsantarem@msn.com</span>
 
           <span className="text-gray-600">(14) 3263-1344</span>
         </div>
