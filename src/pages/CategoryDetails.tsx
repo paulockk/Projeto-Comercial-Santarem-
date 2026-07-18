@@ -113,7 +113,7 @@ export default function CategoryDetails() {
 
             <CategoryProducts
               products={filteredProducts}
-              whatsappUrl={whatsappUrl}
+              category={category}
               onClearFilters={clearFilters}
             />
           </div>
