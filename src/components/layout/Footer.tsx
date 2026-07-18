@@ -17,7 +17,7 @@ export default function Footer() {
           </div>
 
           <p className="max-w-xs text-sm leading-6 text-gray-600 md:text-left">
-            Cuidando do que é importante para você há mais de 40 anos.
+            Cuidando do que é importante para você há mais de 50 anos.
           </p>
         </div>
 

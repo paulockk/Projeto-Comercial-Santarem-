@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const cards = [
   {
     icon: Clock3,
-    title: "Mais de 40 anos",
+    title: "Mais de 50 anos",
     description:
       "Tradição e experiência atendendo gerações de clientes em Lençóis Paulista.",
     iconBackground: "bg-[#E9EEFF]",
@@ -54,7 +54,7 @@ export default function HistorySection() {
             <div className="mt-6 space-y-5">
               <p className="text-sm leading-7 text-slate-600 md:text-base md:leading-8">
                 Há mais de{" "}
-                <strong className="font-bold text-slate-900">40 anos</strong>, a
+                <strong className="font-bold text-slate-900">50 anos</strong>, a
                 Comercial Santarém faz parte da história de Lençóis Paulista,
                 construindo uma trajetória marcada pela confiança, qualidade e
                 compromisso com seus clientes.
