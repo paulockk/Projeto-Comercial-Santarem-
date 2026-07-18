@@ -16,11 +16,11 @@ export default function Products() {
 
   const [search, setSearch] = useState("");
   const [activeCategoryId, setActiveCategoryId] = useState<string>("Todos");
+  const [activeSubcategory, setActiveSubcategory] = useState<string>("Todas");
   const [showFilters, setShowFilters] = useState(false);
 
   const isLoading = isLoadingProducts || isLoadingCategories;
 
-  // Lê o parâmetro ?categoria=slug da URL e já pré-seleciona o filtro
   useEffect(() => {
     if (isLoadingCategories) return;
 
@@ -37,6 +37,13 @@ export default function Products() {
     }
   }, [searchParams, categories, isLoadingCategories]);
 
+  // Subcategorias disponíveis para a categoria selecionada
+  const availableSubcategories = useMemo(() => {
+    if (activeCategoryId === "Todos") return [];
+    const category = categories.find((c) => c.id === activeCategoryId);
+    return category?.subcategories ?? [];
+  }, [categories, activeCategoryId]);
+
   const filteredProducts = useMemo(() => {
     return products
       .filter((p) => p.available)
@@ -52,30 +59,38 @@ export default function Products() {
           activeCategoryId === "Todos" ||
           product.categoryId === activeCategoryId;
 
-        return matchesSearch && matchesCategory;
+        const matchesSubcategory =
+          activeSubcategory === "Todas" ||
+          product.subcategory === activeSubcategory;
+
+        return matchesSearch && matchesCategory && matchesSubcategory;
       });
-  }, [products, search, activeCategoryId]);
+  }, [products, search, activeCategoryId, activeSubcategory]);
 
   function clearFilters() {
     setSearch("");
     setActiveCategoryId("Todos");
+    setActiveSubcategory("Todas");
     setSearchParams({});
   }
 
   function handleCategoryClick(categoryId: string) {
     setActiveCategoryId(categoryId);
-    // Mantém a URL limpa depois que o usuário troca manualmente o filtro
+    setActiveSubcategory("Todas"); // reseta subcategoria ao trocar de categoria
     setSearchParams({});
   }
 
-  const hasActiveFilters = search !== "" || activeCategoryId !== "Todos";
+  const hasActiveFilters =
+    search !== "" ||
+    activeCategoryId !== "Todos" ||
+    activeSubcategory !== "Todas";
 
   return (
     <>
       <Navbar />
 
       <main className="min-h-screen bg-[#F7F8FC] pt-20">
-        <div className="mx-auto max-w-container-max px-10 py-8 md:px-margin-desktop">
+        <div className="mx-auto max-w-container-max px-4 py-8 md:px-margin-desktop">
           <div className="mb-8">
             <h1 className="text-3xl font-extrabold text-[#2E3192] md:text-4xl">
               Todos os produtos
@@ -112,38 +127,79 @@ export default function Products() {
               className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 sm:w-auto"
             >
               <SlidersHorizontal className="h-4 w-4" />
-              Categoria
-              {activeCategoryId !== "Todos" && (
+              Filtros
+              {(activeCategoryId !== "Todos" ||
+                activeSubcategory !== "Todas") && (
                 <span className="h-2 w-2 rounded-full bg-[#E31E24]" />
               )}
             </button>
           </div>
 
           {showFilters && (
-            <div className="mb-6 flex flex-wrap gap-2 rounded-xl border border-gray-100 bg-white p-4 animate-fade-in">
-              <button
-                onClick={() => handleCategoryClick("Todos")}
-                className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                  activeCategoryId === "Todos"
-                    ? "bg-[#2E3192] text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                Todos
-              </button>
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => handleCategoryClick(cat.id)}
-                  className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                    activeCategoryId === cat.id
-                      ? "bg-[#2E3192] text-white"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-                >
-                  {cat.name}
-                </button>
-              ))}
+            <div className="mb-6 space-y-3 rounded-xl border border-gray-100 bg-white p-4 animate-fade-in">
+              <div>
+                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-400">
+                  Categoria
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    onClick={() => handleCategoryClick("Todos")}
+                    className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                      activeCategoryId === "Todos"
+                        ? "bg-[#2E3192] text-white"
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
+                  >
+                    Todos
+                  </button>
+                  {categories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => handleCategoryClick(cat.id)}
+                      className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                        activeCategoryId === cat.id
+                          ? "bg-[#2E3192] text-white"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
+                    >
+                      {cat.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {availableSubcategories.length > 0 && (
+                <div className="border-t border-gray-100 pt-3">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-400">
+                    Subcategoria
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      onClick={() => setActiveSubcategory("Todas")}
+                      className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                        activeSubcategory === "Todas"
+                          ? "bg-[#E30613] text-white"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
+                    >
+                      Todas
+                    </button>
+                    {availableSubcategories.map((sub) => (
+                      <button
+                        key={sub}
+                        onClick={() => setActiveSubcategory(sub)}
+                        className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                          activeSubcategory === sub
+                            ? "bg-[#E30613] text-white"
+                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        }`}
+                      >
+                        {sub}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
