@@ -44,7 +44,7 @@ export default function CategoryRightPanel({
                 <img
                   src={product.images[0] ?? ""}
                   alt={product.name}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-contain"
                 />
               </div>
 
